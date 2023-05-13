@@ -2,18 +2,25 @@ import 'package:flutter/material.dart';
 
 import '../palatte.dart';
 
-class PasswordInput extends StatelessWidget {
+class PasswordInput extends StatefulWidget {
   const PasswordInput({
     Key? key,
     required this.icon,
     required this.hint,
     required this.inputAction,
+    required this.textController,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputAction inputAction;
+  final TextEditingController textController;
 
+  @override
+  State<PasswordInput> createState() => _PasswordInputState();
+}
+
+class _PasswordInputState extends State<PasswordInput> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,14 +32,15 @@ class PasswordInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
+          controller: widget.textController,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,
-            hintText: hint,
+            hintText: widget.hint,
             prefixIcon: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Icon(
-                icon,
+                widget.icon,
                 color: Colors.black,
               ),
             ),
@@ -40,7 +48,7 @@ class PasswordInput extends StatelessWidget {
           ),
           obscureText: true,
           style: kBodyText,
-          textInputAction: inputAction,
+          textInputAction: widget.inputAction,
         ),
       ),
     );
