@@ -9,13 +9,14 @@ class PasswordInput extends StatefulWidget {
     required this.hint,
     required this.inputAction,
     required this.textController,
+    required this.onChanged,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputAction inputAction;
   final TextEditingController textController;
-
+  final Function(String) onChanged;
   @override
   State<PasswordInput> createState() => _PasswordInputState();
 }
@@ -33,6 +34,9 @@ class _PasswordInputState extends State<PasswordInput> {
         ),
         child: TextField(
           controller: widget.textController,
+          onChanged: (String value) {
+            widget.onChanged(value);
+          },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,

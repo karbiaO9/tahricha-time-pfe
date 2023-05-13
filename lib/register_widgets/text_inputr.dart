@@ -10,6 +10,7 @@ class TextInput extends StatefulWidget {
     required this.inputType,
     required this.inputAction,
     required this.textController,
+    required this.onChanged,
   }) : super(key: key);
 
   final IconData icon;
@@ -17,6 +18,7 @@ class TextInput extends StatefulWidget {
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController textController;
+  final Function(String) onChanged;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -35,6 +37,9 @@ class _TextInputState extends State<TextInput> {
         ),
         child: TextField(
           controller: widget.textController,
+          onChanged: (String value) {
+            widget.onChanged(value);
+          },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,
