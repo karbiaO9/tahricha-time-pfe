@@ -2,20 +2,29 @@ import 'package:flutter/material.dart';
 
 import '../palatte.dart';
 
-class TextInput extends StatelessWidget {
+class TextInput extends StatefulWidget {
   const TextInput({
     Key? key,
     required this.icon,
     required this.hint,
     required this.inputType,
     required this.inputAction,
+    required this.textController,
+    required this.onChanged,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final TextEditingController textController;
+  final Function(String) onChanged;
 
+  @override
+  State<TextInput> createState() => _TextInputState();
+}
+
+class _TextInputState extends State<TextInput> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,26 +32,30 @@ class TextInput extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.5),
-          border: Border.all(color: Colors.black, width: 5),
+          border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
+          controller: widget.textController,
+          onChanged: (String value) {
+            widget.onChanged(value);
+          },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,
-            hintText: hint,
+            hintText: widget.hint,
             prefixIcon: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Icon(
-                icon,
+                widget.icon,
                 color: Colors.black,
               ),
             ),
             hintStyle: kBodyText,
           ),
           style: kBodyText,
-          keyboardType: inputType,
-          textInputAction: inputAction,
+          keyboardType: widget.inputType,
+          textInputAction: widget.inputAction,
         ),
       ),
     );

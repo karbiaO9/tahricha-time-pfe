@@ -1,13 +1,44 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../palatte.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({
-    Key? key,
-    required this.buttonText,
-  }) : super(key: key);
   final String buttonText;
+  final String email;
+  final String password;
+
+  const LoginButton({
+    required this.buttonText,
+    required this.email,
+    required this.password,
+    Key? key,
+  }) : super(key: key);
+
+  Future<User?> signInUsingEmailPassword({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided.');
+      }
+    } catch (e) {}
+    return user;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +49,8 @@ class LoginButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)),
       child: TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('HomePage');
+            signInUsingEmailPassword(
+                email: email, password: password, context: context);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

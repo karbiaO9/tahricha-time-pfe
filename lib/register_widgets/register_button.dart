@@ -33,7 +33,7 @@ class RegisterButton extends StatelessWidget {
       await user!.updateProfile(displayName: name);
       await user.reload();
       user = auth.currentUser;
-      Navigator.of(context).pushNamed('');
+      Navigator.of(context).pushNamed('/');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
