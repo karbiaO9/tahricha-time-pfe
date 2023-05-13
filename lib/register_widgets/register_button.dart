@@ -40,9 +40,7 @@ class RegisterButton extends StatelessWidget {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
     return user;
   }
 
