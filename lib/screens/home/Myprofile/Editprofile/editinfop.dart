@@ -29,7 +29,7 @@ class EditInfoPage extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 35),
-                  child: const Column(
+                  child: Column(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,

@@ -26,20 +26,10 @@ class Post {
       };
 
   static Post fromJson(Map<String, dynamic> json) => Post(
-      id: json['id'],
-      food: json['food'],
-      description: json['description'],
-      location: json['location'],
-      restaurant: json['restaurant'],
-      price: json['price']);
+      id: json['id'] ?? "",
+      food: json['food'] ?? "",
+      description: json['description'] ?? "",
+      location: json['location'] ?? "",
+      restaurant: json['restaurant'] ?? "",
+      price: json['price'] ?? "");
 }
-
-Widget buildPost(Post post) => Column(
-      children: [
-        Text(post.food),
-        Text(post.description),
-        Text(post.location),
-        Text(post.price),
-        Text(post.restaurant)
-      ],
-    );

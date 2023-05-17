@@ -31,7 +31,7 @@ class CategoriesPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -430,7 +430,7 @@ class CategoriesPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[

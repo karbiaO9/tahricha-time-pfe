@@ -20,7 +20,7 @@ class EditProfilePage extends StatelessWidget {
           ),
           backgroundColor: Colors.red[600],
         ),
-        body: const SafeArea(
+        body: SafeArea(
             child: Column(
           children: [
             SizedBox(height: 25),

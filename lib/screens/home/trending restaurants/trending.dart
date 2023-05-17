@@ -23,7 +23,7 @@ class TrendingPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -128,7 +128,7 @@ class TrendingPage extends StatelessWidget {
                                           bottomLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(20)),
                                       color: Colors.white70),
-                                  child: const Padding(
+                                  child: Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 10),
                                     child: Row(
@@ -182,7 +182,7 @@ class TrendingPage extends StatelessWidget {
                                             bottomLeft: Radius.circular(20),
                                             bottomRight: Radius.circular(20)),
                                         color: Colors.white70),
-                                    child: const Padding(
+                                    child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 10),
                                       child: Row(
@@ -219,8 +219,7 @@ class TrendingPage extends StatelessWidget {
                                     Navigator.of(context).pushNamed('HomePage');
                                   },
                                   child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 4),
+                                    padding: EdgeInsets.symmetric(vertical: 4),
                                     child: Text(
                                       'add',
                                       style: kBodyText1,
@@ -255,7 +254,7 @@ class TrendingPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[

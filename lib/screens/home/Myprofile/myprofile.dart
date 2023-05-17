@@ -139,7 +139,8 @@ class MyProfilePage extends StatelessWidget {
                                           Row(children: [
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: const Icon(Icons.thumb_up),
+                                                icon:
+                                                    const Icon(Icons.thumb_up),
                                                 color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                             const Text(
@@ -151,7 +152,8 @@ class MyProfilePage extends StatelessWidget {
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: const Icon(Icons.thumb_down),
+                                                icon: const Icon(
+                                                    Icons.thumb_down),
                                                 color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                             const Text(
@@ -297,7 +299,8 @@ class MyProfilePage extends StatelessWidget {
                                           Row(children: [
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: const Icon(Icons.thumb_up),
+                                                icon:
+                                                    const Icon(Icons.thumb_up),
                                                 color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                             const Text(
@@ -309,7 +312,8 @@ class MyProfilePage extends StatelessWidget {
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: const Icon(Icons.thumb_down),
+                                                icon: const Icon(
+                                                    Icons.thumb_down),
                                                 color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                             const Text(
@@ -404,7 +408,7 @@ class MyProfilePage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
