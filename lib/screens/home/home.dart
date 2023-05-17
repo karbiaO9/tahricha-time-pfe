@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -50,22 +50,31 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  StreamBuilder<List<Post>>(
-                      stream: readPosts(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Text(
-                              'Something went wrong! ${snapshot.error} ');
-                        } else if (snapshot.hasData) {
-                          final posts = snapshot.data!;
-
-                          return ListView(
-                            children: posts.map(buildPost).toList(),
-                          );
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      }),
+                  Expanded(
+                    child: StreamBuilder<List<Post>>(
+                        stream: readPosts(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text(
+                                'Something went wrong! ${snapshot.error} ');
+                          } else if (snapshot.hasData) {
+                            final posts = snapshot.data!;
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: posts.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
+                              itemBuilder: (BuildContext context, int index) {
+                                return _Post(posts[index]);
+                              },
+                            );
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        }),
+                  ),
                 ],
               ),
             ],
@@ -99,7 +108,7 @@ class HomePage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
@@ -167,3 +176,13 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+Widget _Post(Post post) => Column(
+      children: [
+        Text(post.food),
+        Text(post.description),
+        Text(post.location),
+        Text(post.price),
+        Text(post.restaurant)
+      ],
+    );
