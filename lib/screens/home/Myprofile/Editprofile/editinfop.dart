@@ -14,10 +14,10 @@ class EditInfoPage extends StatelessWidget {
           color: Colors.white,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: Color.fromRGBO(249, 50, 9, .2),
+            backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
             appBar: AppBar(
               centerTitle: true,
-              title: Text(
+              title: const Text(
                 'Edit Information',
                 textAlign: TextAlign.center,
                 style: kBodyText3,
@@ -29,7 +29,7 @@ class EditInfoPage extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 35),
-                  child: Column(
+                  child: const Column(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,

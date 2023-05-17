@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class Sizes {
   static const double SIZE_120 = 120.0;

@@ -10,17 +10,17 @@ class EditProfilePage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(249, 50, 9, .2),
+        backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Edit Profile',
             textAlign: TextAlign.center,
             style: kBodyText3,
           ),
           backgroundColor: Colors.red[600],
         ),
-        body: SafeArea(
+        body: const SafeArea(
             child: Column(
           children: [
             SizedBox(height: 25),

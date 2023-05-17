@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tahricha_app/screens/register_page.dart';
 
 import '../palatte.dart';
 

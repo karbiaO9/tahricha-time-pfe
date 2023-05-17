@@ -11,7 +11,7 @@ class TrendingPage extends StatelessWidget {
       backgroundColor: Colors.white.withAlpha(220),
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Trending Restaurants',
           textAlign: TextAlign.center,
           style: kBodyText3,
@@ -23,7 +23,7 @@ class TrendingPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -39,7 +39,7 @@ class TrendingPage extends StatelessWidget {
               Flexible(
                   child: ListView.builder(
                       itemCount: 3,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         if (index == 0) {
@@ -59,7 +59,7 @@ class TrendingPage extends StatelessWidget {
                                               BorderRadius.circular(20),
                                           color: Colors.white70),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
+                                        borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(20),
                                             topRight: Radius.circular(20)),
                                         child: Image.asset(
@@ -81,7 +81,7 @@ class TrendingPage extends StatelessWidget {
                                                   BorderRadius.circular(5.0)),
                                           child: Container(
                                             alignment: Alignment.center,
-                                            child: Text(
+                                            child: const Text(
                                               'Open',
                                               textAlign: TextAlign.center,
                                               style: kBodyText8,
@@ -109,7 +109,7 @@ class TrendingPage extends StatelessWidget {
                                                   size: 15,
                                                   color: Colors.amber[900],
                                                 ),
-                                                Text(
+                                                const Text(
                                                   '4,5',
                                                   textAlign: TextAlign.center,
                                                   style: kBodyText8,
@@ -123,13 +123,13 @@ class TrendingPage extends StatelessWidget {
                                 Container(
                                   height: 75,
                                   width: 350,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(20)),
                                       color: Colors.white70),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
+                                  child: const Padding(
+                                    padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 10),
                                     child: Row(
                                       crossAxisAlignment:
@@ -164,7 +164,7 @@ class TrendingPage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(20),
                                         color: Colors.white70),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(20),
                                           topRight: Radius.circular(20)),
                                       child: Image.asset(
@@ -177,13 +177,13 @@ class TrendingPage extends StatelessWidget {
                                   Container(
                                     height: 75,
                                     width: 350,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(20),
                                             bottomRight: Radius.circular(20)),
                                         color: Colors.white70),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
+                                    child: const Padding(
+                                      padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 10),
                                       child: Row(
                                         crossAxisAlignment:
@@ -218,9 +218,9 @@ class TrendingPage extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.of(context).pushNamed('HomePage');
                                   },
-                                  child: Padding(
+                                  child: const Padding(
                                     padding:
-                                        const EdgeInsets.symmetric(vertical: 4),
+                                        EdgeInsets.symmetric(vertical: 4),
                                     child: Text(
                                       'add',
                                       style: kBodyText1,
@@ -241,21 +241,21 @@ class TrendingPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.home,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Home'),
+                    const Text('Home'),
                   ],
                 ),
               ),
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
@@ -271,7 +271,7 @@ class TrendingPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Align(
@@ -289,14 +289,14 @@ class TrendingPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.notifications,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Notifications'),
+                    const Text('Notifications'),
                   ],
                 ),
               ),
@@ -304,14 +304,14 @@ class TrendingPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.person_outline_outlined,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Profile'),
+                    const Text('Profile'),
                   ],
                 ),
               ),

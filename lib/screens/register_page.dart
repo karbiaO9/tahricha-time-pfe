@@ -4,7 +4,7 @@ import 'package:tahricha_app/register_widgets/widgets.dart';
 import '../palatte.dart';
 
 class Register_page extends StatefulWidget {
-  Register_page({Key? key}) : super(key: key);
+  const Register_page({Key? key}) : super(key: key);
 
   @override
   State<Register_page> createState() => _Register_pageState();
@@ -55,7 +55,7 @@ class _Register_pageState extends State<Register_page> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImagea(),
+        const BackgroundImagea(),
         Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
@@ -65,18 +65,18 @@ class _Register_pageState extends State<Register_page> {
                 Container(
                   width: 150,
                   height: 150,
-                  child: Icon(
+                  child: const Icon(
                     Icons.account_circle_outlined,
                     size: 125,
                     color: Colors.white,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(100.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(100.0)),
                     border: Border.all(color: Colors.black, width: 3),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Container(
@@ -127,7 +127,7 @@ class _Register_pageState extends State<Register_page> {
                       ),
                       Column(
                         children: [
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                           RegisterButton(
                             buttonText: 'Register',
                             email: email,
@@ -136,9 +136,9 @@ class _Register_pageState extends State<Register_page> {
                           ),
                           Column(
                             children: [
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Container(
-                                child: Text(
+                                child: const Text(
                                   'Already Have an account?',
                                   style: kBodyText3,
                                 ),
@@ -149,7 +149,7 @@ class _Register_pageState extends State<Register_page> {
                             onTap: () {
                               Navigator.pushNamed(context, '/');
                             },
-                            child: Text(
+                            child: const Text(
                               'Login',
                               style: kBodyText4,
                             ),

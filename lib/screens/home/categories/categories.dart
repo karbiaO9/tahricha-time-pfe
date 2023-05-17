@@ -16,10 +16,10 @@ class CategoriesPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed('/');
               },
-              icon: Icon(Icons.search))
+              icon: const Icon(Icons.search))
         ],
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Categories',
           textAlign: TextAlign.center,
           style: kBodyText3,
@@ -31,7 +31,7 @@ class CategoriesPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -47,7 +47,7 @@ class CategoriesPage extends StatelessWidget {
               Flexible(
                   child: ListView.builder(
                       itemCount: 7,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         if (index == 0) {
@@ -83,8 +83,8 @@ class CategoriesPage extends StatelessWidget {
                                               BorderRadius.circular(20),
                                           color: Colors.orangeAccent
                                               .withAlpha(125)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(24.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(24.0),
                                         child: Text(
                                           'Pizza',
                                           style: kBodyText02,
@@ -134,8 +134,8 @@ class CategoriesPage extends StatelessWidget {
                                                   BorderRadius.circular(20),
                                               color:
                                                   Colors.cyan.withAlpha(125)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(24.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
                                             child: Text(
                                               'Desserts',
                                               style: kBodyText02,
@@ -149,7 +149,6 @@ class CategoriesPage extends StatelessWidget {
                                 ),
                               ));
                         }
-                        ;
                         if (index == 2) {
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -186,8 +185,8 @@ class CategoriesPage extends StatelessWidget {
                                                   BorderRadius.circular(20),
                                               color: Colors.blueAccent
                                                   .withAlpha(125)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(24.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
                                             child: Text(
                                               'Pasta',
                                               style: kBodyText02,
@@ -201,7 +200,6 @@ class CategoriesPage extends StatelessWidget {
                                 ),
                               ));
                         }
-                        ;
                         if (index == 3) {
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -238,8 +236,8 @@ class CategoriesPage extends StatelessWidget {
                                                   BorderRadius.circular(20),
                                               color:
                                                   Colors.yellow.withAlpha(100)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(24.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
                                             child: Text(
                                               'Tunisian',
                                               style: kBodyText02,
@@ -253,7 +251,6 @@ class CategoriesPage extends StatelessWidget {
                                 ),
                               ));
                         }
-                        ;
                         if (index == 4) {
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -289,8 +286,8 @@ class CategoriesPage extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               color: Colors.pink.withAlpha(75)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(24.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
                                             child: Text(
                                               'Hot',
                                               style: kBodyText02,
@@ -304,7 +301,6 @@ class CategoriesPage extends StatelessWidget {
                                 ),
                               ));
                         }
-                        ;
                         if (index == 5) {
                           return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -341,8 +337,8 @@ class CategoriesPage extends StatelessWidget {
                                                   BorderRadius.circular(20),
                                               color:
                                                   Colors.indigo.withAlpha(125)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(24.0),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(24.0),
                                             child: Text(
                                               'Drinks',
                                               style: kBodyText02,
@@ -392,8 +388,8 @@ class CategoriesPage extends StatelessWidget {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             color: Colors.red.withAlpha(125)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(24.0),
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(24.0),
                                           child: Text(
                                             'See all',
                                             style: kBodyText02,
@@ -420,21 +416,21 @@ class CategoriesPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.home,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Home'),
+                    const Text('Home'),
                   ],
                 ),
               ),
             ),
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
@@ -450,7 +446,7 @@ class CategoriesPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Align(
@@ -468,14 +464,14 @@ class CategoriesPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.notifications,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Notifications'),
+                    const Text('Notifications'),
                   ],
                 ),
               ),
@@ -483,14 +479,14 @@ class CategoriesPage extends StatelessWidget {
             InkWell(
               onTap: () => Navigator.pushNamed(context, '/'),
               child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0),
                 child: Column(
                   children: <Widget>[
                     Icon(
                       Icons.person_outline_outlined,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Text('Profile'),
+                    const Text('Profile'),
                   ],
                 ),
               ),

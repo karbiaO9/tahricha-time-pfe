@@ -8,6 +8,7 @@ class RegisterButton extends StatelessWidget {
   final String email;
   final String password;
   final String name;
+
   const RegisterButton({
     required this.buttonText,
     required this.email,
@@ -40,7 +41,7 @@ class RegisterButton extends StatelessWidget {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
-    } catch (e) {}
+    }
     return user;
   }
 

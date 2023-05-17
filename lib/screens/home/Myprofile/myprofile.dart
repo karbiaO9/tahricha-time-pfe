@@ -12,17 +12,17 @@ class MyProfilePage extends StatelessWidget {
       color: Colors.white,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Color.fromRGBO(249, 50, 9, .2),
+        backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
           actions: [
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('EditProfile');
                 },
-                icon: Icon(Icons.mode_edit_outline_rounded))
+                icon: const Icon(Icons.mode_edit_outline_rounded))
           ],
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'My Profile',
             textAlign: TextAlign.center,
             style: kBodyText3,
@@ -34,18 +34,18 @@ class MyProfilePage extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: AssetImage('assets/images/eni.png'),
                   minRadius: Sizes.RADIUS_60,
                   maxRadius: Sizes.RADIUS_60,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   'Karbia Oussema',
                   style: kBodyTextP,
                 ),
@@ -72,7 +72,7 @@ class MyProfilePage extends StatelessWidget {
                                                 BorderRadius.circular(20),
                                             color: Colors.white70),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(20),
                                               topRight: Radius.circular(20)),
                                           child: Image.asset(
@@ -107,7 +107,7 @@ class MyProfilePage extends StatelessWidget {
                                                         color:
                                                             Colors.amber[900],
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Good',
                                                         textAlign:
                                                             TextAlign.center,
@@ -124,7 +124,7 @@ class MyProfilePage extends StatelessWidget {
                                   Container(
                                     height: 170,
                                     width: 350,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(20),
                                             bottomRight: Radius.circular(20)),
@@ -139,67 +139,67 @@ class MyProfilePage extends StatelessWidget {
                                           Row(children: [
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.thumb_up),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.thumb_up),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            Text(
+                                            const Text(
                                               '10',
                                               style: kBodyText001,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.thumb_down),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.thumb_down),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            Text(
+                                            const Text(
                                               '4',
                                               style: kBodyText001,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.comment),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.comment),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(
+                                                icon: const Icon(
                                                     Icons.favorite_outline),
                                                 color: Colors.red),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(
+                                                icon: const Icon(
                                                     Icons.report_gmailerrorred),
-                                                color: Color.fromRGBO(
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                           ]),
-                                          Text(
+                                          const Text(
                                             'Food : Turkish baklewa',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Location: Sahloul,Sousse',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Price: 13dt',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Restaurant: Dar Alkunafa',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
@@ -230,7 +230,7 @@ class MyProfilePage extends StatelessWidget {
                                                 BorderRadius.circular(20),
                                             color: Colors.white70),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                               topLeft: Radius.circular(20),
                                               topRight: Radius.circular(20)),
                                           child: Image.asset(
@@ -265,7 +265,7 @@ class MyProfilePage extends StatelessWidget {
                                                         color:
                                                             Colors.amber[900],
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Good',
                                                         textAlign:
                                                             TextAlign.center,
@@ -282,7 +282,7 @@ class MyProfilePage extends StatelessWidget {
                                   Container(
                                     height: 170,
                                     width: 350,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(20),
                                             bottomRight: Radius.circular(20)),
@@ -297,67 +297,67 @@ class MyProfilePage extends StatelessWidget {
                                           Row(children: [
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.thumb_up),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.thumb_up),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            Text(
+                                            const Text(
                                               '21',
                                               style: kBodyText001,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.thumb_down),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.thumb_down),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            Text(
+                                            const Text(
                                               '2',
                                               style: kBodyText001,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(Icons.comment),
-                                                color: Color.fromRGBO(
+                                                icon: const Icon(Icons.comment),
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(
+                                                icon: const Icon(
                                                     Icons.favorite_outline),
                                                 color: Colors.red),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 15,
                                             ),
                                             IconButton(
                                                 onPressed: () {},
-                                                icon: Icon(
+                                                icon: const Icon(
                                                     Icons.report_gmailerrorred),
-                                                color: Color.fromRGBO(
+                                                color: const Color.fromRGBO(
                                                     62, 62, 104, 100)),
                                           ]),
-                                          Text(
+                                          const Text(
                                             'Food : Spaghetti Sauce Blanche',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Location: Monastir',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Price: 16dt',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
                                           ),
-                                          Text(
+                                          const Text(
                                             'Restaurant: Bizz\'ar',
                                             style: kBodyText1,
                                             textAlign: TextAlign.justify,
@@ -370,6 +370,7 @@ class MyProfilePage extends StatelessWidget {
                               ),
                             );
                           }
+                          return null;
                         })),
               ],
             ),
@@ -379,7 +380,7 @@ class MyProfilePage extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(color: Colors.blueGrey, width: 1),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(50.0),
                   topRight: Radius.circular(50.0))),
           height: 60,
@@ -389,21 +390,21 @@ class MyProfilePage extends StatelessWidget {
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
                         Icons.home,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                      Text('Home'),
+                      const Text('Home'),
                     ],
                   ),
                 ),
               ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
@@ -419,7 +420,7 @@ class MyProfilePage extends StatelessWidget {
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Align(
@@ -437,14 +438,14 @@ class MyProfilePage extends StatelessWidget {
               InkWell(
                 onTap: () => Navigator.pushNamed(context, '/'),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
                         Icons.notifications,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                      Text('Notifications'),
+                      const Text('Notifications'),
                     ],
                   ),
                 ),
@@ -452,14 +453,14 @@ class MyProfilePage extends StatelessWidget {
               InkWell(
                 onTap: () => Navigator.pushNamed(context, 'MyProfile'),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
                         Icons.person_outline_outlined,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
-                      Text('Profile'),
+                      const Text('Profile'),
                     ],
                   ),
                 ),

@@ -1,14 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
 
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:tahricha_app/home_widgets/Newpost/widgets.dart';
 
-import '../../home_widgets/Newpost/post_button.dart';
 import '../../palatte.dart';
 
-class NewPostPage extends StatelessWidget {
+class NewPostPage extends StatefulWidget {
   const NewPostPage({Key? key}) : super(key: key);
+
+  @override
+  State<NewPostPage> createState() => _NewPostPageState();
+}
+
+class _NewPostPageState extends State<NewPostPage> {
+  final TextEditingController _foodController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+
+  final TextEditingController _restaurantController = TextEditingController();
+
+  final TextEditingController _locationController = TextEditingController();
+
+  final TextEditingController _priceController = TextEditingController();
+
+  String food = "";
+  String description = "";
+  String price = "";
+  String location = "";
+  String restaurant = "";
+
+  void onChangedFood(String value) {
+    setState(() {
+      food = value;
+    });
+  }
+
+  void onChangedDescription(String value) {
+    setState(() {
+      description = value;
+    });
+  }
+
+  void onChangedPrice(String value) {
+    setState(() {
+      price = value;
+    });
+  }
+
+  void onChangedLocation(String value) {
+    setState(() {
+      location = value;
+    });
+  }
+
+  void onChangedRestaurant(String value) {
+    setState(() {
+      restaurant = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +71,15 @@ class NewPostPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pushNamed('HomePage');
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.close,
               ),
               iconSize: 40,
             ),
           ],
           centerTitle: true,
-          title: Text(
-            'New podfest',
+          title: const Text(
+            'New post',
             style: kBodyText3,
           ),
           backgroundColor: Colors.red[600],
@@ -40,264 +88,8 @@ class NewPostPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    'Select Category',
-                    style: kBodyText2,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.red.shade100,
-                                        Colors.red.shade300,
-                                        Colors.red.shade500
-                                      ],
-                                    ),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Sweet',
-                                        style: kBodyText123,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                      color: Colors.blueGrey, width: 1),
-                                ),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Brunch',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Pizza',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Hot',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                      color: Colors.blueGrey, width: 1),
-                                ),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Salads',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Tunisia',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Drinks',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                      color: Colors.blueGrey, width: 1),
-                                ),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Pasta',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Container(
-                                width: 100,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(50)),
-                                child: TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('HomePage');
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 4),
-                                      child: Text(
-                                        'Dessert',
-                                        style: kBodyText12,
-                                      ),
-                                    ))),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    'Description',
-                    style: kBodyText2,
-                  ),
-                ),
-                TextInput(
-                  icon: Icons.description,
-                  hint: 'Description',
-                  inputType: TextInputType.text,
-                  inputAction: TextInputAction.next,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Food',
                     style: kBodyText2,
@@ -308,9 +100,26 @@ class NewPostPage extends StatelessWidget {
                   hint: 'Food',
                   inputType: TextInputType.text,
                   inputAction: TextInputAction.next,
+                  onChanged: onChangedFood,
+                  textController: _foodController,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                    'Description',
+                    style: kBodyText2,
+                  ),
+                ),
+                TextInput(
+                  icon: Icons.description,
+                  hint: 'Description',
+                  inputType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  onChanged: onChangedDescription,
+                  textController: _descriptionController,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Restaurant',
                     style: kBodyText2,
@@ -321,9 +130,11 @@ class NewPostPage extends StatelessWidget {
                   hint: 'Restaurant',
                   inputType: TextInputType.text,
                   inputAction: TextInputAction.next,
+                  onChanged: onChangedRestaurant,
+                  textController: _restaurantController,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Locatiion',
                     style: kBodyText2,
@@ -334,9 +145,11 @@ class NewPostPage extends StatelessWidget {
                   hint: 'Location',
                   inputType: TextInputType.text,
                   inputAction: TextInputAction.next,
+                  onChanged: onChangedLocation,
+                  textController: _locationController,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Price',
                     style: kBodyText2,
@@ -347,9 +160,11 @@ class NewPostPage extends StatelessWidget {
                   hint: 'Price',
                   inputType: TextInputType.text,
                   inputAction: TextInputAction.next,
+                  onChanged: onChangedPrice,
+                  textController: _priceController,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Rating',
                     style: kBodyText2,
@@ -367,30 +182,35 @@ class NewPostPage extends StatelessWidget {
                     children: [
                       TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Good',
                             style: kBodyText13,
                           )),
-                      VerticalDivider(
+                      const VerticalDivider(
                         thickness: 2,
                         color: Colors.white,
                       ),
                       TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Bad  ',
                             style: kBodyText13,
                           ))
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(20.0),
                   child: PostButton(
                     buttonText: 'Post',
+                    description: description,
+                    food: food,
+                    location: location,
+                    price: price,
+                    restaurant: restaurant,
                   ),
                 ),
               ],
@@ -399,6 +219,5 @@ class NewPostPage extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

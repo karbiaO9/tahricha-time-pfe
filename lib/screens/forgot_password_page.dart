@@ -10,14 +10,14 @@ class ForgotPasswordPAge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImageb(),
+        const BackgroundImageb(),
         Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: SafeArea(
               child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
                 child: Center(
                   child: Text(
@@ -26,7 +26,7 @@ class ForgotPasswordPAge extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 child: Center(
                   child: Text(
@@ -36,12 +36,12 @@ class ForgotPasswordPAge extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+                child: const Column(
                   children: [
                     Column(
                       children: [

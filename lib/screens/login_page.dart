@@ -33,16 +33,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImage(),
+        const BackgroundImage(),
         Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Column(
               children: [
-                Container(
-                    height: 225, child: Image.asset('assets/images/logo.png')),
                 SizedBox(
+                    height: 225, child: Image.asset('assets/images/logo.png')),
+                const SizedBox(
                   height: 25,
                 ),
                 Container(
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               Navigator.of(context).pushNamed('ForgotPassword');
                             },
-                            child: Text(
+                            child: const Text(
                               'Forgot Password?',
                               style: kBodyText4,
                             ),
@@ -80,14 +80,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Column(
                         children: [
-                          SizedBox(height: 50),
+                          const SizedBox(height: 50),
                           LoginButton(
                             buttonText: 'Login',
                             email: email,
                             password: password,
                           ),
-                          SizedBox(height: 50),
-                          NewButton(
+                          const SizedBox(height: 50),
+                          const NewButton(
                             buttonText: 'Create new account',
                           ),
                         ],

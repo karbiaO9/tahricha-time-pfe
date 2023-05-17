@@ -35,7 +35,7 @@ class LoginButton extends StatelessWidget {
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided.');
       }
-    } catch (e) {}
+    }
     return user;
   }
 
@@ -49,6 +49,7 @@ class LoginButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)),
       child: TextButton(
           onPressed: () {
+            Navigator.pushNamed(context, 'HomePage');
             signInUsingEmailPassword(
                 email: email, password: password, context: context);
           },
