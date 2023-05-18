@@ -6,23 +6,39 @@ import 'package:tahricha_app/palatte.dart';
 
 import '../../../models/post.dart';
 
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyProfilePage> createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+  String userId = '';
+
+  @override
+  @mustCallSuper
+  void initState() {
+    super.initState();
+    loadUserId();
+  }
+
+  loadUserId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString("userId") ?? "";
+    });
+  }
 
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
       .where(
         'userId',
-        isEqualTo: getUserId(),
+        isEqualTo: userId,
       )
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
-
-  getUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("userId");
-  }
 
   @override
   Widget build(BuildContext context) {

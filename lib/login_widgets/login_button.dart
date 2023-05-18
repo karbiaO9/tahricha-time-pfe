@@ -32,7 +32,7 @@ class LoginButton extends StatelessWidget {
         password: password,
       );
       user = userCredential.user;
-      await prefs.setString('uesrId', user!.uid);
+      await prefs.setString('userId', user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -53,9 +53,9 @@ class LoginButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)),
       child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, 'HomePage');
             signInUsingEmailPassword(
                 email: email, password: password, context: context);
+            Navigator.pushNamed(context, 'HomePage');
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

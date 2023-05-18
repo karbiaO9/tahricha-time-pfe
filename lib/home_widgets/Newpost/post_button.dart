@@ -34,7 +34,6 @@ class PostButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)),
       child: TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('HomePage');
             createPost(
               food: food,
               description: description,
@@ -42,6 +41,7 @@ class PostButton extends StatelessWidget {
               restaurant: restaurant,
               price: price,
             );
+            Navigator.of(context).pushNamed('HomePage');
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -61,7 +61,8 @@ class PostButton extends StatelessWidget {
       required String price}) async {
     final docPost = FirebaseFirestore.instance.collection('posts').doc();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? userId = prefs.getString("userId");
+
+    String userId = prefs.getString("userId") ?? '';
     final post = Post(
         id: docPost.id,
         food: food,
@@ -69,7 +70,7 @@ class PostButton extends StatelessWidget {
         location: location,
         price: price,
         restaurant: restaurant,
-        userId: userId!);
+        userId: userId);
     final json = post.toJson();
 
     await docPost.set(json);
