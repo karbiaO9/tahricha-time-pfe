@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
@@ -10,10 +11,18 @@ class MyProfilePage extends StatelessWidget {
 
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
-      .where('userId', isEqualTo: '4')
+      .where(
+        'userId',
+        isEqualTo: getUserId(),
+      )
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
+
+  getUserId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("userId");
+  }
 
   @override
   Widget build(BuildContext context) {

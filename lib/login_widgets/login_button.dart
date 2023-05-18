@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../palatte.dart';
 
@@ -20,6 +21,8 @@ class LoginButton extends StatelessWidget {
     required String password,
     required BuildContext context,
   }) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
 
@@ -29,7 +32,7 @@ class LoginButton extends StatelessWidget {
         password: password,
       );
       user = userCredential.user;
-      print(user!.uid);
+      await prefs.setString('uesrId', user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

@@ -17,7 +17,7 @@ class Post {
     required this.location,
     required this.restaurant,
     required this.price,
-    this.userId = '4',
+    required this.userId,
   });
   Map<String, dynamic> toJson() => {
         'id': id,

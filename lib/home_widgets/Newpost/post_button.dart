@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
-import '../../Models/post.dart';
+import '../../models/post.dart';
 
 class PostButton extends StatelessWidget {
   final String food;
@@ -59,15 +60,16 @@ class PostButton extends StatelessWidget {
       required String restaurant,
       required String price}) async {
     final docPost = FirebaseFirestore.instance.collection('posts').doc();
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userId = prefs.getString("userId");
     final post = Post(
-      id: docPost.id,
-      food: food,
-      description: description,
-      location: location,
-      price: price,
-      restaurant: restaurant,
-    );
+        id: docPost.id,
+        food: food,
+        description: description,
+        location: location,
+        price: price,
+        restaurant: restaurant,
+        userId: userId!);
     final json = post.toJson();
 
     await docPost.set(json);
