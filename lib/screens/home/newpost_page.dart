@@ -66,17 +66,6 @@ class _NewPostPageState extends State<NewPostPage> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white.withAlpha(220),
         appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('HomePage');
-              },
-              icon: const Icon(
-                Icons.close,
-              ),
-              iconSize: 40,
-            ),
-          ],
           centerTitle: true,
           title: const Text(
             'New post',

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
-import '../../../models/post.dart';
+import '../../Models/post.dart';
 
-class MyProfilePage extends StatelessWidget {
-  const MyProfilePage({Key? key}) : super(key: key);
+class SavedPage extends StatelessWidget {
+  const SavedPage({Key? key}) : super(key: key);
 
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
-      .where('userId', isEqualTo: '4')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
@@ -25,37 +24,18 @@ class MyProfilePage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            'My Profile',
+            'Saved Posts',
             textAlign: TextAlign.center,
             style: kBodyText3,
           ),
           backgroundColor: Colors.red[600],
         ),
-        body: Container(
+        body: SafeArea(
           child: Stack(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Text(
-                      'Karbia Oussema',
-                      style: kBodyTextP,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () => Navigator.pushNamed(context, 'NewPost'),
-                      child: Text(
-                        'What did you eat Last time ?!',
-                        style: kBodyTextNEW,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 50,
                   ),
@@ -96,44 +76,13 @@ class MyProfilePage extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(50.0),
                   topRight: Radius.circular(50.0))),
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          height: 80,
+          child: Column(
             children: [
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, 'HomePage'),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.home,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      const Text('Home'),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.favorite_outline_rounded,
-                        color: Colors.red,
-                      ),
-                      Text('Favorite'),
-                    ],
-                  ),
-                ),
-              ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, 'NewPost'),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(bottom: 12.0),
                   child: Column(
                     children: <Widget>[
                       Align(
@@ -148,35 +97,56 @@ class MyProfilePage extends StatelessWidget {
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.notifications,
-                        color: Theme.of(context).colorScheme.secondary,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, 'HomePage'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.home,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          const Text('Home'),
+                        ],
                       ),
-                      const Text('Notifications'),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, 'MyProfile'),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.person_outline_outlined,
-                        color: Theme.of(context).colorScheme.secondary,
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/'),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 15.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          ),
+                          Text('Favorite'),
+                        ],
                       ),
-                      const Text('Profile'),
-                    ],
+                    ),
                   ),
-                ),
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(context, 'MyProfile'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.person_outline_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 30,
+                          ),
+                          const Text('Profile'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -200,7 +170,7 @@ Widget _Post(Post post) => Padding(
             children: [
               Row(children: [
                 const SizedBox(
-                  width: 10,
+                  width: 30,
                 ),
                 IconButton(
                     onPressed: () {},
@@ -233,7 +203,7 @@ Widget _Post(Post post) => Padding(
                 ),
                 IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.favorite_outline),
+                    icon: const Icon(Icons.favorite_rounded),
                     color: Colors.red),
                 const SizedBox(
                   width: 10,
@@ -241,12 +211,6 @@ Widget _Post(Post post) => Padding(
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.report_gmailerrorred),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                IconButton(
-                    onPressed: () {
-                      _deletePost(post.id);
-                    },
-                    icon: const Icon(Icons.delete),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
               Text(
@@ -279,16 +243,3 @@ Widget _Post(Post post) => Padding(
         ),
       ),
     );
-void _deletePost(String postId) {
-  FirebaseFirestore.instance
-      .collection('posts')
-      .doc(postId)
-      .delete()
-      .then((value) {
-    // Post deletion successful
-    print('Post deleted successfully');
-  }).catchError((error) {
-    // Handle any error that occurred during deletion
-    print('Error deleting post: $error');
-  });
-}

@@ -48,6 +48,10 @@ const TextStyle kBodyText1 = TextStyle(
   fontSize: 22,
   color: Colors.black,
 );
+const TextStyle kBodyTextNEW = TextStyle(
+  fontSize: 22,
+  color: Color.fromARGB(255, 8, 109, 181),
+);
 
 const TextStyle kBodyText12 = TextStyle(
   fontSize: 20,

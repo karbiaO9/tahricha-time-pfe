@@ -29,6 +29,7 @@ class LoginButton extends StatelessWidget {
         password: password,
       );
       user = userCredential.user;
+      print(user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

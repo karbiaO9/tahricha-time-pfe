@@ -7,6 +7,7 @@ import 'package:tahricha_app/screens/home/Myprofile/myprofile.dart';
 import 'package:tahricha_app/screens/home/filter.dart';
 import 'package:tahricha_app/screens/home/home.dart';
 import 'package:tahricha_app/screens/home/newpost_page.dart';
+import 'package:tahricha_app/screens/home/saved.dart';
 import 'package:tahricha_app/screens/home/trending%20restaurants/trending.dart';
 import 'package:tahricha_app/screens/login_page.dart';
 import 'package:tahricha_app/screens/register_page.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         "ForgotPassword": (context) => const ForgotPasswordPAge(),
         "RegisterPage": (context) => const Register_page(),
         "HomePage": (context) => const HomePage(),
+        "SavedPage": (context) => const SavedPage(),
         "Categories": (context) => const CategoriesPage(),
         "Trending": (context) => const TrendingPage(),
         "MyProfile": (context) => const MyProfilePage(),

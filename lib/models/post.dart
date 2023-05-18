@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Post {
@@ -7,6 +8,7 @@ class Post {
   final String location;
   final String restaurant;
   final String price;
+  final String userId;
 
   Post({
     this.id = '',
@@ -15,6 +17,7 @@ class Post {
     required this.location,
     required this.restaurant,
     required this.price,
+    this.userId = '4',
   });
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -23,6 +26,7 @@ class Post {
         'location': location,
         'price': price,
         'restaurant': restaurant,
+        'userId': userId,
       };
 
   static Post fromJson(Map<String, dynamic> json) => Post(
@@ -31,5 +35,6 @@ class Post {
       description: json['description'] ?? "",
       location: json['location'] ?? "",
       restaurant: json['restaurant'] ?? "",
-      price: json['price'] ?? "");
+      price: json['price'] ?? "",
+      userId: json['userId'] ?? "");
 }

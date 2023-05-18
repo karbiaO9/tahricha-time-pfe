@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
           centerTitle: true,
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
+                onTap: () => Navigator.pushNamed(context, 'HomePage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
@@ -107,13 +107,13 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
+                onTap: () => Navigator.pushNamed(context, 'SavedPage'),
                 child: Padding(
                   padding: EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.favorite_outline_rounded,
+                        Icons.favorite_rounded,
                         color: Colors.red,
                       ),
                       Text('Favorite'),
@@ -177,12 +177,95 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget _Post(Post post) => Column(
-      children: [
-        Text(post.food),
-        Text(post.description),
-        Text(post.location),
-        Text(post.price),
-        Text(post.restaurant)
-      ],
+Widget _Post(Post post) => Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Container(
+        height: 200,
+        width: 300,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            color: Colors.white70),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.thumb_up),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                const Text(
+                  '10',
+                  style: kBodyText001,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.thumb_down),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                const Text(
+                  '4',
+                  style: kBodyText001,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.comment),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.favorite_outline),
+                    color: Colors.red),
+                const SizedBox(
+                  width: 10,
+                ),
+                IconButton(
+                    onPressed: () {
+                      final docPost = FirebaseFirestore.instance
+                          .collection('posts')
+                          .doc('my-id');
+                      docPost.update({'food': 'aaa'});
+                    },
+                    icon: const Icon(Icons.update),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+              ]),
+              Text(
+                post.food,
+                style: kBodyText1,
+                textAlign: TextAlign.justify,
+              ),
+              Text(
+                post.description,
+                style: kBodyText1,
+                textAlign: TextAlign.justify,
+              ),
+              Text(
+                post.location,
+                style: kBodyText1,
+                textAlign: TextAlign.justify,
+              ),
+              Text(
+                post.price,
+                style: kBodyText1,
+                textAlign: TextAlign.justify,
+              ),
+              Text(
+                post.restaurant,
+                style: kBodyText1,
+                textAlign: TextAlign.justify,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
