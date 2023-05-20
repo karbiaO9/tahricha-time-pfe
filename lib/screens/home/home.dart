@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tahricha_app/palatte.dart';
+import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
 
 import '../../Models/post.dart';
 import '../../home_widgets/find/findRest.dart';
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
                                   (BuildContext context, int index) =>
                                       const Divider(),
                               itemBuilder: (BuildContext context, int index) {
-                                return _Post(posts[index]);
+                                return _Post(posts[index], context);
                               },
                             );
                           } else {
@@ -177,7 +178,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget _Post(Post post) => Padding(
+Widget _Post(Post post, BuildContext context) => Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
         height: 200,
@@ -231,10 +232,11 @@ Widget _Post(Post post) => Padding(
                 ),
                 IconButton(
                     onPressed: () {
-                      final docPost = FirebaseFirestore.instance
-                          .collection('posts')
-                          .doc('my-id');
-                      docPost.update({'food': 'aaa'});
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditPostPage(post: post)),
+                      );
                     },
                     icon: const Icon(Icons.update),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
