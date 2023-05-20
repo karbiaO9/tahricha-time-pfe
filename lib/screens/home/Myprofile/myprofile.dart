@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
 import '../../../models/post.dart';
+import '../../../models/user.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key? key}) : super(key: key);
@@ -29,6 +31,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
       userId = prefs.getString("userId") ?? "";
     });
   }
+
+  Stream<List<LocalUser>> readUsers() => FirebaseFirestore.instance
+      .collection('users')
+      .where(
+        'userId',
+        isEqualTo: userId,
+      )
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
 
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
@@ -62,11 +74,22 @@ class _MyProfilePageState extends State<MyProfilePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(
-                    child: Text(
-                      'Karbia Oussema',
-                      style: kBodyTextP,
-                    ),
+                  Container(
+                    child: StreamBuilder<List<LocalUser>>(
+                        stream: readUsers(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text(
+                                'Something went wrong! ${snapshot.error} ');
+                          } else if (snapshot.hasData) {
+                            final users = snapshot.data!;
+
+                            return buildUser(users[0]);
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        }),
                   ),
                   SizedBox(
                     height: 2,
@@ -274,10 +297,19 @@ Widget _Post(Post post) => Padding(
                     icon: const Icon(Icons.delete),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
-              Text(
-                post.food,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Food:',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.food,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
               Text(
                 post.description,
@@ -317,3 +349,17 @@ void _deletePost(String postId) {
     print('Error deleting post: $error');
   });
 }
+
+Widget buildUser(LocalUser user) => Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Center(
+            child: Text(
+              user.name,
+              style: kBodyTextP,
+            ),
+          ),
+        ],
+      ),
+    );

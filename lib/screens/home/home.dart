@@ -239,15 +239,33 @@ Widget _Post(Post post) => Padding(
                     icon: const Icon(Icons.update),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
-              Text(
-                post.food,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Food :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.food,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.description,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Description :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.description,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
               Text(
                 post.location,

@@ -72,7 +72,8 @@ class _Register_pageState extends State<Register_page> {
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.5),
-                    borderRadius: const BorderRadius.all(Radius.circular(100.0)),
+                    borderRadius:
+                        const BorderRadius.all(Radius.circular(100.0)),
                     border: Border.all(color: Colors.black, width: 3),
                   ),
                 ),
@@ -132,6 +133,7 @@ class _Register_pageState extends State<Register_page> {
                             buttonText: 'Register',
                             email: email,
                             name: name,
+                            location: location,
                             password: password,
                           ),
                           Column(
