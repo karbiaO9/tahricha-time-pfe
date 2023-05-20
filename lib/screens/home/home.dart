@@ -267,20 +267,47 @@ Widget _Post(Post post) => Padding(
                   ),
                 ],
               ),
-              Text(
-                post.location,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Location :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.location,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.price,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Restaurant :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.restaurant,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.restaurant,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Price:  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.price,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
             ],
           ),

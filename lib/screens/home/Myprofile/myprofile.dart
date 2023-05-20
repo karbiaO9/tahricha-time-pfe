@@ -248,7 +248,7 @@ Widget _Post(Post post) => Padding(
             children: [
               Row(children: [
                 const SizedBox(
-                  width: 10,
+                  width: 30,
                 ),
                 IconButton(
                     onPressed: () {},
@@ -287,20 +287,19 @@ Widget _Post(Post post) => Padding(
                   width: 10,
                 ),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.report_gmailerrorred),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                IconButton(
                     onPressed: () {
-                      _deletePost(post.id);
+                      final docPost = FirebaseFirestore.instance
+                          .collection('posts')
+                          .doc('my-id');
+                      docPost.update({'food': 'aaa'});
                     },
-                    icon: const Icon(Icons.delete),
+                    icon: const Icon(Icons.update),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
               Row(
                 children: [
                   Text(
-                    'Food:',
+                    'Food :  ',
                     style: kBodyText1,
                     textAlign: TextAlign.justify,
                   ),
@@ -311,25 +310,61 @@ Widget _Post(Post post) => Padding(
                   ),
                 ],
               ),
-              Text(
-                post.description,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Description :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.description,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.location,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Location :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.location,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.price,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Restaurant :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.restaurant,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
-              Text(
-                post.restaurant,
-                style: kBodyText1,
-                textAlign: TextAlign.justify,
+              Row(
+                children: [
+                  Text(
+                    'Price:  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    post.price,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
               ),
             ],
           ),
