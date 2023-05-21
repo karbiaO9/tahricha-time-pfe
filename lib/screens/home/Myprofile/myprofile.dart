@@ -4,9 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
+import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
 
 import '../../../models/post.dart';
-import '../../../models/user.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key? key}) : super(key: key);
@@ -123,7 +123,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                   (BuildContext context, int index) =>
                                       const Divider(),
                               itemBuilder: (BuildContext context, int index) {
-                                return _Post(posts[index]);
+                                return _Post(posts[index], context);
                               },
                             );
                           } else {
@@ -234,7 +234,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   }
 }
 
-Widget _Post(Post post) => Padding(
+Widget _Post(Post post, BuildContext context) => Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
         height: 200,
@@ -280,20 +280,20 @@ Widget _Post(Post post) => Padding(
                   width: 10,
                 ),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_outline),
-                    color: Colors.red),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
                     onPressed: () {
-                      final docPost = FirebaseFirestore.instance
-                          .collection('posts')
-                          .doc('my-id');
-                      docPost.update({'food': 'aaa'});
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditPostPage(post: post)),
+                      );
                     },
                     icon: const Icon(Icons.update),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                IconButton(
+                    onPressed: () {
+                      _deletePost(post.id);
+                    },
+                    icon: const Icon(Icons.delete),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
               Row(
@@ -371,6 +371,7 @@ Widget _Post(Post post) => Padding(
         ),
       ),
     );
+
 void _deletePost(String postId) {
   FirebaseFirestore.instance
       .collection('posts')

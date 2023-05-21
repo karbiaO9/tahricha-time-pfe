@@ -208,15 +208,6 @@ Widget _Post(Post post) => Padding(
                 const SizedBox(
                   width: 10,
                 ),
-                IconButton(
-                    onPressed: () {
-                      final docPost = FirebaseFirestore.instance
-                          .collection('posts')
-                          .doc('my-id');
-                      docPost.update({'food': 'aaa'});
-                    },
-                    icon: const Icon(Icons.update),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
               Row(
                 children: [

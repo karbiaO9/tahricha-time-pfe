@@ -37,14 +37,15 @@ class EditPostButton extends StatelessWidget {
       child: TextButton(
           onPressed: () {
             editPost(
-                food: food,
-                description: description,
-                location: location,
-                restaurant: restaurant,
-                price: price,
-                id: id,
-                userId: userId);
-            Navigator.of(context).pushNamed('HomePage');
+              food: food,
+              description: description,
+              location: location,
+              restaurant: restaurant,
+              price: price,
+              id: id,
+              userId: userId,
+            );
+            Navigator.of(context).pushNamed('MyProfile');
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),

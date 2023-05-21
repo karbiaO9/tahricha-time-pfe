@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tahricha_app/palatte.dart';
 import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
 
-import '../../Models/post.dart';
+import '../../models/post.dart';
 import '../../home_widgets/find/findRest.dart';
 
 class HomePage extends StatelessWidget {
@@ -231,14 +231,8 @@ Widget _Post(Post post, BuildContext context) => Padding(
                   width: 10,
                 ),
                 IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditPostPage(post: post)),
-                      );
-                    },
-                    icon: const Icon(Icons.update),
+                    onPressed: () {},
+                    icon: const Icon(Icons.report_gmailerrorred),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
               ]),
               Row(

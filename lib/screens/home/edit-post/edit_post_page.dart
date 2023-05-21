@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tahricha_app/Models/post.dart';
 
 import 'package:tahricha_app/home_widgets/Newpost/widgets.dart';
 import 'package:tahricha_app/screens/home/edit-post/widgets/edit_post_button.dart';
 
+import '../../../models/post.dart';
 import '../../../palatte.dart';
 
 class EditPostPage extends StatefulWidget {
