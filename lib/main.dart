@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tahricha_app/screens/forgot_password_page.dart';
 import 'package:tahricha_app/screens/home/Myprofile/Editprofile/changepasswordp.dart';
 import 'package:tahricha_app/screens/home/Myprofile/Editprofile/editprofile.dart';
-import 'package:tahricha_app/screens/home/categories/categories.dart';
 import 'package:tahricha_app/screens/home/Myprofile/myprofile.dart';
 import 'package:tahricha_app/screens/home/filter.dart';
 import 'package:tahricha_app/screens/home/home.dart';
 import 'package:tahricha_app/screens/home/newpost_page.dart';
 import 'package:tahricha_app/screens/home/saved.dart';
-import 'package:tahricha_app/screens/home/trending%20restaurants/trending.dart';
 import 'package:tahricha_app/screens/login_page.dart';
 import 'package:tahricha_app/screens/register_page.dart';
 import 'screens/home/Myprofile/Editprofile/editinfop.dart';
@@ -41,8 +39,6 @@ class MyApp extends StatelessWidget {
         "RegisterPage": (context) => const Register_page(),
         "HomePage": (context) => const HomePage(),
         "SavedPage": (context) => const SavedPage(),
-        "Categories": (context) => const CategoriesPage(),
-        "Trending": (context) => const TrendingPage(),
         "MyProfile": (context) => const MyProfilePage(),
         "EditProfile": (context) => const EditProfilePage(),
         "EditInfo": (context) => const EditInfoPage(),
