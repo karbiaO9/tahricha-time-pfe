@@ -5,6 +5,8 @@ import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
 import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
+import 'package:tahricha_app/screens/home/reaction/dislike_button.dart';
+import 'package:tahricha_app/screens/home/reaction/like_button.dart';
 
 import '../../../models/post.dart';
 
@@ -139,15 +141,18 @@ class _MyProfilePageState extends State<MyProfilePage> {
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.blueGrey, width: 1),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0))),
-          height: 60,
+            color: Colors.white,
+            border: Border.all(color: Colors.blueGrey, width: 1),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50.0),
+              topRight: Radius.circular(50.0),
+            ),
+          ),
+          height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // Home
               InkWell(
                 onTap: () => Navigator.pushNamed(context, 'HomePage'),
                 child: Padding(
@@ -157,27 +162,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       Icon(
                         Icons.home,
                         color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
                       ),
                       const Text('Home'),
                     ],
                   ),
                 ),
               ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.favorite_outline_rounded,
-                        color: Colors.red,
-                      ),
-                      Text('Favorite'),
-                    ],
-                  ),
-                ),
-              ),
+              // New Post
               InkWell(
                 onTap: () => Navigator.pushNamed(context, 'NewPost'),
                 child: Padding(
@@ -186,42 +178,30 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     children: <Widget>[
                       Align(
                         heightFactor: 0,
+                        widthFactor: 0.5,
                         child: Icon(
                           Icons.add_circle_outlined,
                           color: Theme.of(context).colorScheme.secondary,
-                          size: 75.0,
+                          size: 80.0, // Maintain the previous size for New Post
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
+              // Saved
               InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
+                onTap: () => Navigator.pushNamed(context, 'SavedPage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.notifications,
+                        Icons.bookmark_outline,
                         color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
                       ),
-                      const Text('Notifications'),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, 'MyProfile'),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.person_outline_outlined,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      const Text('Profile'),
+                      const Text('Saved'),
                     ],
                   ),
                 ),
@@ -248,29 +228,43 @@ Widget _Post(Post post, BuildContext context) => Padding(
             children: [
               Row(children: [
                 const SizedBox(
-                  width: 30,
+                  width: 15,
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_up),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '10',
+                LikeButton(
+                  food: post.food,
+                  description: post.description,
+                  location: post.location,
+                  restaurant: post.restaurant,
+                  price: post.price,
+                  id: post.id,
+                  userId: post.userId,
+                  likes: post.likes,
+                  dislikes: post.dislikes,
+                ),
+                Text(
+                  post.likes.toString(),
                   style: kBodyText001,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_down),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '4',
+                DislikeButton(
+                  food: post.food,
+                  description: post.description,
+                  location: post.location,
+                  restaurant: post.restaurant,
+                  price: post.price,
+                  id: post.id,
+                  userId: post.userId,
+                  likes: post.likes,
+                  dislikes: post.dislikes,
+                ),
+                Text(
+                  post.dislikes.toString(),
                   style: kBodyText001,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 15,
                 ),
                 IconButton(
                     onPressed: () {},
@@ -279,6 +273,10 @@ Widget _Post(Post post, BuildContext context) => Padding(
                 const SizedBox(
                   width: 10,
                 ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.bookmark_add_outlined),
+                    color: Colors.blue),
                 IconButton(
                     onPressed: () {
                       Navigator.push(

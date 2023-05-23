@@ -27,6 +27,8 @@ class _NewPostPageState extends State<NewPostPage> {
   String price = "";
   String location = "";
   String restaurant = "";
+  int likes = 0;
+  int dislikes = 0;
 
   void onChangedFood(String value) {
     setState(() {
@@ -194,13 +196,14 @@ class _NewPostPageState extends State<NewPostPage> {
                 Padding(
                   padding: EdgeInsets.all(20.0),
                   child: PostButton(
-                    buttonText: 'Post',
-                    description: description,
-                    food: food,
-                    location: location,
-                    price: price,
-                    restaurant: restaurant,
-                  ),
+                      buttonText: 'Post',
+                      description: description,
+                      food: food,
+                      location: location,
+                      price: price,
+                      restaurant: restaurant,
+                      likes: likes,
+                      dislikes: dislikes),
                 ),
               ],
             ),

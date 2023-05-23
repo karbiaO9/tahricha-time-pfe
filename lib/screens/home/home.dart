@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:tahricha_app/palatte.dart';
 import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
+import 'package:tahricha_app/screens/home/reaction/dislike_button.dart';
+import 'package:tahricha_app/screens/home/reaction/like_button.dart';
 
 import '../../models/post.dart';
 import '../../home_widgets/find/findRest.dart';
@@ -24,6 +26,7 @@ class HomePage extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text(
             'Tahricha Home',
@@ -83,41 +86,29 @@ class HomePage extends StatelessWidget {
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.blueGrey, width: 1),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0))),
-          height: 60,
+            color: Colors.white,
+            border: Border.all(color: Colors.blueGrey, width: 1),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50.0),
+              topRight: Radius.circular(50.0),
+            ),
+          ),
+          height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: () => Navigator.pushNamed(context, 'HomePage'),
+                onTap: () => Navigator.pushNamed(context, 'SavedPage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.home,
+                        Icons.bookmark_outline,
                         color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
                       ),
-                      const Text('Home'),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, 'SavedPage'),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.favorite_rounded,
-                        color: Colors.red,
-                      ),
-                      Text('Favorite'),
+                      const Text('Saved'),
                     ],
                   ),
                 ),
@@ -130,27 +121,13 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       Align(
                         heightFactor: 0,
+                        widthFactor: 0.5,
                         child: Icon(
                           Icons.add_circle_outlined,
                           color: Theme.of(context).colorScheme.secondary,
-                          size: 75.0,
+                          size: 80.0, // Maintain the previous size for New Post
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () => Navigator.pushNamed(context, '/'),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.notifications,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                      const Text('Notifications'),
                     ],
                   ),
                 ),
@@ -164,8 +141,9 @@ class HomePage extends StatelessWidget {
                       Icon(
                         Icons.person_outline_outlined,
                         color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
                       ),
-                      const Text('Profile'),
+                      const Text('My Profile'),
                     ],
                   ),
                 ),
@@ -176,137 +154,151 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget _Post(Post post, BuildContext context) => Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Container(
-        height: 200,
-        width: 300,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            color: Colors.white70),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(children: [
-                const SizedBox(
-                  width: 30,
+  Widget _Post(Post post, BuildContext context) => Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Container(
+          height: 200,
+          width: 300,
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              color: Colors.white70),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  LikeButton(
+                    food: post.food,
+                    description: post.description,
+                    location: post.location,
+                    restaurant: post.restaurant,
+                    price: post.price,
+                    id: post.id,
+                    userId: post.userId,
+                    likes: post.likes,
+                    dislikes: post.dislikes,
+                  ),
+                  Text(
+                    post.likes.toString(),
+                    style: kBodyText001,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  DislikeButton(
+                    food: post.food,
+                    description: post.description,
+                    location: post.location,
+                    restaurant: post.restaurant,
+                    price: post.price,
+                    id: post.id,
+                    userId: post.userId,
+                    likes: post.likes,
+                    dislikes: post.dislikes,
+                  ),
+                  Text(
+                    post.dislikes.toString(),
+                    style: kBodyText001,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.comment),
+                      color: const Color.fromRGBO(62, 62, 104, 100)),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.bookmark_add_outlined),
+                      color: Colors.blue),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.report_gmailerrorred),
+                      color: const Color.fromRGBO(62, 62, 104, 100)),
+                ]),
+                Row(
+                  children: [
+                    Text(
+                      'Food :  ',
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                    Text(
+                      post.food,
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_up),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '10',
-                  style: kBodyText001,
+                Row(
+                  children: [
+                    Text(
+                      'Description :  ',
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                    Text(
+                      post.description,
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
+                Row(
+                  children: [
+                    Text(
+                      'Location :  ',
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                    Text(
+                      post.location,
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_down),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '4',
-                  style: kBodyText001,
+                Row(
+                  children: [
+                    Text(
+                      'Restaurant :  ',
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                    Text(
+                      post.restaurant,
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
+                Row(
+                  children: [
+                    Text(
+                      'Price:  ',
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                    Text(
+                      post.price,
+                      style: kBodyText1,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.comment),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite_outline),
-                    color: Colors.red),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.report_gmailerrorred),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-              ]),
-              Row(
-                children: [
-                  Text(
-                    'Food :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.food,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Description :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.description,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Location :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.location,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Restaurant :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.restaurant,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Price:  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.price,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+}

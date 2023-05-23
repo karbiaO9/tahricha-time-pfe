@@ -62,23 +62,10 @@ class _Register_pageState extends State<Register_page> {
           body: SafeArea(
             child: Column(
               children: [
-                Container(
-                  width: 150,
-                  height: 150,
-                  child: const Icon(
-                    Icons.account_circle_outlined,
-                    size: 125,
-                    color: Colors.white,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(100.0)),
-                    border: Border.all(color: Colors.black, width: 3),
-                  ),
-                ),
+                SizedBox(
+                    height: 225, child: Image.asset('assets/images/logo.png')),
                 const SizedBox(
-                  height: 50,
+                  height: 15,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -116,13 +103,6 @@ class _Register_pageState extends State<Register_page> {
                             inputAction: TextInputAction.done,
                             textController: _passwordController,
                             onChanged: onChangedPassword,
-                          ),
-                          PasswordInput(
-                            icon: Icons.lock_outline_rounded,
-                            hint: 'Confirm Password',
-                            inputAction: TextInputAction.done,
-                            textController: _confirmPasswordController,
-                            onChanged: (value) {},
                           ),
                         ],
                       ),

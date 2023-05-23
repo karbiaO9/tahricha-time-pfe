@@ -199,6 +199,8 @@ class _EditPostPageState extends State<EditPostPage> {
                       restaurant: restaurant,
                       id: widget.post.id,
                       userId: widget.post.userId,
+                      likes: widget.post.likes,
+                      dislikes: widget.post.dislikes,
                     ),
                   ),
                 ],

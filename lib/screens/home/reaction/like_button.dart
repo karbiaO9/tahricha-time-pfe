@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tahricha_app/models/post.dart';
 
-import 'package:tahricha_app/palatte.dart';
-
-class EditPostButton extends StatelessWidget {
+class LikeButton extends StatelessWidget {
   final String food;
   final String description;
   final String location;
@@ -14,10 +12,8 @@ class EditPostButton extends StatelessWidget {
   final String userId;
   final int likes;
   final int dislikes;
-
-  const EditPostButton({
+  const LikeButton({
     Key? key,
-    required this.buttonText,
     required this.food,
     required this.description,
     required this.location,
@@ -28,19 +24,12 @@ class EditPostButton extends StatelessWidget {
     required this.likes,
     required this.dislikes,
   }) : super(key: key);
-  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: const Color(0xFF5663FE).withOpacity(0.5),
-          border: Border.all(color: Colors.black, width: 5),
-          borderRadius: BorderRadius.circular(30)),
-      child: TextButton(
-          onPressed: () {
-            editPost(
+    return IconButton(
+        onPressed: () {
+          editPost(
               food: food,
               description: description,
               location: location,
@@ -49,18 +38,10 @@ class EditPostButton extends StatelessWidget {
               id: id,
               userId: userId,
               likes: likes,
-              dislikes: dislikes,
-            );
-            Navigator.of(context).pushNamed('MyProfile');
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Text(
-              buttonText,
-              style: kBodyText1,
-            ),
-          )),
-    );
+              dislikes: dislikes);
+        },
+        icon: const Icon(Icons.thumb_up),
+        color: const Color.fromRGBO(62, 62, 104, 100));
   }
 
   Future editPost(
@@ -83,8 +64,9 @@ class EditPostButton extends StatelessWidget {
         price: price,
         restaurant: restaurant,
         userId: userId,
-        likes: likes,
+        likes: likes + 1,
         dislikes: dislikes);
+
     final json = post.toJson();
 
     await docPost.update(json);

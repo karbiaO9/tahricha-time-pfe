@@ -67,15 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                             textController: _passwordController,
                             onChanged: onChangedPassword,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushNamed('ForgotPassword');
-                            },
-                            child: const Text(
-                              'Forgot Password?',
-                              style: kBodyText4,
-                            ),
-                          )
                         ],
                       ),
                       Column(

@@ -71,82 +71,67 @@ class SavedPage extends StatelessWidget {
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.blueGrey, width: 1),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0))),
-          height: 80,
-          child: Column(
+            color: Colors.white,
+            border: Border.all(color: Colors.blueGrey, width: 1),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50.0),
+              topRight: Radius.circular(50.0),
+            ),
+          ),
+          height: 70,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, 'HomePage'),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.home,
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
+                      ),
+                      const Text('Home'),
+                    ],
+                  ),
+                ),
+              ),
               InkWell(
                 onTap: () => Navigator.pushNamed(context, 'NewPost'),
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Align(
                         heightFactor: 0,
+                        widthFactor: 0.5,
                         child: Icon(
                           Icons.add_circle_outlined,
                           color: Theme.of(context).colorScheme.secondary,
-                          size: 75.0,
+                          size: 80.0, // Maintain the previous size for New Post
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, 'HomePage'),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.home,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          const Text('Home'),
-                        ],
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, 'MyProfile'),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.bookmark_outline,
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 37.0, // Increase the size here
                       ),
-                    ),
+                      const Text('My Profile'),
+                    ],
                   ),
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/'),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 15.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          ),
-                          Text('Favorite'),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pushNamed(context, 'MyProfile'),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            Icons.person_outline_outlined,
-                            color: Theme.of(context).colorScheme.secondary,
-                            size: 30,
-                          ),
-                          const Text('Profile'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
@@ -203,8 +188,8 @@ Widget _Post(Post post) => Padding(
                 ),
                 IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.favorite_rounded),
-                    color: Colors.red),
+                    icon: const Icon(Icons.bookmark),
+                    color: Colors.blue),
                 const SizedBox(
                   width: 10,
                 ),
