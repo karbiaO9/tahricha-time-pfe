@@ -36,58 +36,59 @@ class _FilterPageState extends State<FilterPage> {
         ),
         backgroundColor: Colors.red[600],
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              'Location',
-              style: kBodyText2,
-            ),
-          ),
-          const LocationInput(
-            icon: Icons.location_city,
-            hint: 'Location City',
-            inputType: TextInputType.streetAddress,
-            inputAction: TextInputAction.next,
-          ),
-          const Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Text(
-              'Rating',
-              style: kBodyText2,
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.red[600],
-              borderRadius: BorderRadius.circular(50),
-            ),
-            height: 50,
-            width: 300,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Good',
-                      style: kBodyText13,
-                    )),
-                const VerticalDivider(
-                  thickness: 2,
-                  color: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 40.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  'Food',
+                  style: kBodyText2,
                 ),
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Bad  ',
-                      style: kBodyText13,
-                    ))
-              ],
-            ),
+              ),
+              const Input(
+                icon: Icons.fastfood,
+                hint: 'Food ',
+                inputType: TextInputType.text,
+                inputAction: TextInputAction.next,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  'Location',
+                  style: kBodyText2,
+                ),
+              ),
+              const Input(
+                icon: Icons.location_city,
+                hint: 'Location City',
+                inputType: TextInputType.streetAddress,
+                inputAction: TextInputAction.next,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text(
+                  'Restaurant',
+                  style: kBodyText2,
+                ),
+              ),
+              const Input(
+                icon: Icons.restaurant,
+                hint: 'Restaurant',
+                inputType: TextInputType.streetAddress,
+                inputAction: TextInputAction.next,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(

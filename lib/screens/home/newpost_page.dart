@@ -79,6 +79,27 @@ class _NewPostPageState extends State<NewPostPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 200,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    color: Color.fromRGBO(249, 50, 9, .2),
+                    border: Border.all(
+                      color: const Color.fromRGBO(229, 57, 53, 1),
+                      width: 5.0,
+                    ),
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.camera_alt_outlined),
+                    iconSize: 50,
+                    color: Colors.red[600],
+                    onPressed: () {},
+                  ),
+                ),
                 const Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Text(

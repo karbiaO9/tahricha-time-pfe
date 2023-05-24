@@ -23,14 +23,60 @@ class EditProfilePage extends StatelessWidget {
         body: SafeArea(
             child: Column(
           children: [
-            SizedBox(height: 25),
-            EditInfo(
-              buttonText: 'Edit Information',
-            ),
-            SizedBox(height: 25),
-            ChangePassword(
-              buttonText: 'Change Password',
-            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 35),
+              child: Column(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(height: 100),
+                      TextInput(
+                        hint: 'Name',
+                        inputType: TextInputType.name,
+                        inputAction: TextInputAction.next,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextInput(
+                        hint: 'SurName',
+                        inputType: TextInputType.name,
+                        inputAction: TextInputAction.next,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      TextInput(
+                        hint: 'Location City',
+                        inputType: TextInputType.streetAddress,
+                        inputAction: TextInputAction.next,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      PasswordInput(
+                        hint: 'Old password',
+                        inputAction: TextInputAction.done,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      PasswordInput(
+                        hint: 'New password',
+                        inputAction: TextInputAction.done,
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      SaveButton(
+                        buttonText: 'save',
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
           ],
         )),
       ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../palatte.dart';
 
-class LocationInput extends StatelessWidget {
-  const LocationInput({
+class Input extends StatelessWidget {
+  const Input({
     Key? key,
     required this.icon,
     required this.hint,

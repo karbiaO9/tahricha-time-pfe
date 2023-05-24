@@ -68,6 +68,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
             textAlign: TextAlign.center,
             style: kBodyText3,
           ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(context).pushNamed('EditProfile');
+              },
+            ),
+          ],
           backgroundColor: Colors.red[600],
         ),
         body: Container(
