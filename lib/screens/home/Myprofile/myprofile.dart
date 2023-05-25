@@ -239,6 +239,8 @@ Widget _Post(Post post, BuildContext context) => Padding(
                   width: 15,
                 ),
                 LikeButton(
+                  good: post.good,
+                  image: post.image,
                   food: post.food,
                   description: post.description,
                   location: post.location,
@@ -257,6 +259,8 @@ Widget _Post(Post post, BuildContext context) => Padding(
                   width: 10,
                 ),
                 DislikeButton(
+                  good: post.good,
+                  image: post.image,
                   food: post.food,
                   description: post.description,
                   location: post.location,

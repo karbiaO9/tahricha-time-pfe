@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 import 'package:tahricha_app/palatte.dart';
 
@@ -13,10 +16,17 @@ class PostButton extends StatelessWidget {
   final String restaurant;
   final String price;
   final int likes;
+  final bool? good;
   final int dislikes;
+  final GlobalKey<FormState> formKey;
+  final String image;
+  final File? f;
+
 
   const PostButton({
     Key? key,
+     this.f,
+     required this.good,
     required this.buttonText,
     required this.food,
     required this.description,
@@ -25,6 +35,8 @@ class PostButton extends StatelessWidget {
     required this.price,
     required this.likes,
     required this.dislikes,
+    required this.formKey,
+    required this.image
   }) : super(key: key);
   final String buttonText;
 
@@ -38,15 +50,21 @@ class PostButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(30)),
       child: TextButton(
           onPressed: () {
-            createPost(
+            print('pressed');
+           if( formKey.currentState!.validate()&&f!=null&&good==null){
+              createPost(
                 food: food,
                 description: description,
                 location: location,
                 restaurant: restaurant,
                 price: price,
                 likes: likes,
+                image:image,
+                f:f!,
                 dislikes: dislikes);
             Navigator.of(context).pushNamed('HomePage');
+           }
+            
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
@@ -65,19 +83,26 @@ class PostButton extends StatelessWidget {
       required String restaurant,
       required String price,
       required int likes,
+      required File f,
+      required String image,
       required int dislikes}) async {
     final docPost = FirebaseFirestore.instance.collection('posts').doc();
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+     final ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('images/${image+DateTime.now().toString()}');
+    await ref.putFile(f);
+    String url = await ref.getDownloadURL();
 
-    String userId = prefs.getString("userId") ?? '';
     final post = Post(
+        good: good!,
         id: docPost.id,
         food: food,
+        image: url,
         description: description,
         location: location,
         price: price,
         restaurant: restaurant,
-        userId: userId,
+        userId: FirebaseAuth.instance.currentUser!.uid.toString(),
         likes: likes,
         dislikes: dislikes);
     final json = post.toJson();

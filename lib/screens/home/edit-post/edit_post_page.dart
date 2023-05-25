@@ -34,6 +34,8 @@ class _EditPostPageState extends State<EditPostPage> {
   late String price;
   late String location;
   late String restaurant;
+  late String image;
+  late bool good;
 
   @override
   void initState() {
@@ -191,6 +193,8 @@ class _EditPostPageState extends State<EditPostPage> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: EditPostButton(
+                      good: good,
+                      image: image,
                       buttonText: 'Save changes',
                       description: description,
                       food: food,

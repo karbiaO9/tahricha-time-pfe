@@ -12,9 +12,13 @@ class DislikeButton extends StatelessWidget {
   final String userId;
   final int likes;
   final int dislikes;
+  final String image;
+  final bool good;
 
   const DislikeButton(
       {Key? key,
+      required this.good,
+      required this.image,
       required this.food,
       required this.description,
       required this.location,
@@ -59,6 +63,8 @@ class DislikeButton extends StatelessWidget {
     final docPost = FirebaseFirestore.instance.collection('posts').doc(id);
 
     final post = Post(
+      good: good,
+        image: image,
         id: docPost.id,
         food: food,
         description: description,

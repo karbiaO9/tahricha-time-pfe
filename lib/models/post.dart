@@ -11,8 +11,11 @@ class Post {
   final String userId;
   final int likes;
   final int dislikes;
+  final String image;
+  final bool good;
 
   Post({
+    required this.good,
     this.id = '',
     required this.food,
     required this.description,
@@ -22,8 +25,10 @@ class Post {
     required this.userId,
     required this.likes,
     required this.dislikes,
+    required this.image
   });
   Map<String, dynamic> toJson() => {
+        'good':good,
         'id': id,
         'food': food,
         'description': description,
@@ -33,9 +38,11 @@ class Post {
         'userId': userId,
         "likes": likes,
         "dislikes": dislikes,
+        "image":image
       };
 
   static Post fromJson(Map<String, dynamic> json) => Post(
+      good: json['good'] ?? true,
       id: json['id'] ?? "",
       food: json['food'] ?? "",
       description: json['description'] ?? "",
@@ -44,5 +51,7 @@ class Post {
       price: json['price'] ?? "",
       userId: json['userId'] ?? "",
       likes: json['likes'] ?? 0,
-      dislikes: json['dislikes'] ?? 0);
+      dislikes: json['dislikes'] ?? 0,
+      image: json['image']??""
+      );
 }

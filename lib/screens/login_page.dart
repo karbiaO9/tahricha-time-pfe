@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       password = value;
     });
   }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -49,30 +50,46 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 35),
                   child: Column(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          TextInput(
-                            icon: Icons.email_outlined,
-                            hint: 'Email',
-                            inputType: TextInputType.emailAddress,
-                            inputAction: TextInputAction.next,
-                            textController: _emailController,
-                            onChanged: onChangedEmail,
-                          ),
-                          PasswordInput(
-                            icon: Icons.lock_outline_rounded,
-                            hint: 'Password',
-                            inputAction: TextInputAction.done,
-                            textController: _passwordController,
-                            onChanged: onChangedPassword,
-                          ),
-                        ],
+                      Form(
+                        key:_formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            TextInput(
+                              validator: (v){
+                                if(v!.isEmpty||!v.contains('@gmail.com'))
+                                  return "email@gmail.com";
+                                  return null;
+                                
+                              },
+                              icon: Icons.email_outlined,
+                              hint: 'Email',
+                              inputType: TextInputType.emailAddress,
+                              inputAction: TextInputAction.next,
+                              textController: _emailController,
+                              onChanged: onChangedEmail,
+                            ),
+                            PasswordInput(
+                               validator: (v){
+                                if(v!.isEmpty)
+                                  return "password required";
+                                  return null;
+                                
+                              },
+                              icon: Icons.lock_outline_rounded,
+                              hint: 'Password',
+                              inputAction: TextInputAction.done,
+                              textController: _passwordController,
+                              onChanged: onChangedPassword,
+                            ),
+                          ],
+                        ),
                       ),
                       Column(
                         children: [
                           const SizedBox(height: 50),
                           LoginButton(
+                            formKey: _formKey,
                             buttonText: 'Login',
                             email: email,
                             password: password,

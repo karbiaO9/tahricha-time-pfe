@@ -1,5 +1,10 @@
+import 'dart:io';
+
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tahricha_app/register_widgets/widgets.dart';
+import 'package:path/path.dart';
 
 import '../palatte.dart';
 
@@ -26,6 +31,7 @@ class _Register_pageState extends State<Register_page> {
   String name = "";
   String password = "";
   String location = "";
+  final _formKey = GlobalKey<FormState>();
 
   void onChangedEmail(String value) {
     setState(() {
@@ -51,6 +57,30 @@ class _Register_pageState extends State<Register_page> {
     });
   }
 
+  //get image from gallery
+  XFile ? img=null;
+  File ? f ;
+  String fileName="";
+  final ImagePicker _picker = ImagePicker();
+  Future  getimage() async{
+  img = await _picker.pickImage(source: ImageSource.gallery);
+  if (img!= null){
+    setState(() {
+        f = File (img!.path);
+  fileName=basename(f!.path);
+    });
+  }
+
+  }
+
+ String? _checkEmptyField(String value){
+    if(value.isEmpty){
+      return "Required field";
+    }
+    return null;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -60,88 +90,135 @@ class _Register_pageState extends State<Register_page> {
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: SafeArea(
-            child: Column(
-              children: [
-                SizedBox(
-                    height: 225, child: Image.asset('assets/images/logo.png')),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 35),
-                  child: Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          TextInput(
-                            icon: Icons.account_circle_outlined,
-                            hint: 'Name',
-                            inputType: TextInputType.name,
-                            inputAction: TextInputAction.next,
-                            textController: _nameController,
-                            onChanged: onChangedName,
+            child:  SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                        height: 225, child: Image.asset('assets/images/logo.png')),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    f==null? Container(
+                        height: 200,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          color: Color.fromRGBO(249, 50, 9, .2),
+                          border: Border.all(
+                            color: const Color.fromRGBO(229, 57, 53, 1),
+                            width: 5.0,
                           ),
-                          TextInput(
-                            icon: Icons.email_outlined,
-                            hint: 'Email',
-                            inputType: TextInputType.emailAddress,
-                            inputAction: TextInputAction.next,
-                            textController: _emailController,
-                            onChanged: onChangedEmail,
-                          ),
-                          TextInput(
-                              icon: Icons.location_city,
-                              hint: 'Location City',
-                              inputType: TextInputType.streetAddress,
-                              inputAction: TextInputAction.next,
-                              textController: _locationController,
-                              onChanged: onChangedLocation),
-                          PasswordInput(
-                            icon: Icons.lock_outline_rounded,
-                            hint: 'Password',
-                            inputAction: TextInputAction.done,
-                            textController: _passwordController,
-                            onChanged: onChangedPassword,
-                          ),
-                        ],
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.camera_alt_outlined),
+                          iconSize: 50,
+                          color: Colors.red[600],
+                          onPressed: () async{
+                            await getimage();
+                          },
+                        ),
+                      ):InkWell(
+                        onTap: ()async{
+                          await getimage();
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          child: Image.file(f!,width: 300,height: 200,fit: BoxFit.cover,)),
                       ),
-                      Column(
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 35),
+                      child: Column(
                         children: [
-                          const SizedBox(height: 50),
-                          RegisterButton(
-                            buttonText: 'Register',
-                            email: email,
-                            name: name,
-                            location: location,
-                            password: password,
-                          ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const SizedBox(height: 10),
-                              Container(
-                                child: const Text(
-                                  'Already Have an account?',
-                                  style: kBodyText3,
-                                ),
+                              TextInput(
+                                 validator: (v){
+                       return _checkEmptyField(v!);
+                    },
+                                icon: Icons.account_circle_outlined,
+                                hint: 'Name',
+                                inputType: TextInputType.name,
+                                inputAction: TextInputAction.next,
+                                textController: _nameController,
+                                onChanged: onChangedName,
+                              ),
+                              TextInput(
+                                 validator: (v){
+                       return v!.contains('@gmail.com') ? null:'email@gmail.com';
+                    },
+                                icon: Icons.email_outlined,
+                                hint: 'Email',
+                                inputType: TextInputType.emailAddress,
+                                inputAction: TextInputAction.next,
+                                textController: _emailController,
+                                onChanged: onChangedEmail,
+                              ),
+                              TextInput(
+                                 validator: (v){
+                       return _checkEmptyField(v!);
+                    },
+                                  icon: Icons.location_city,
+                                  hint: 'Location City',
+                                  inputType: TextInputType.streetAddress,
+                                  inputAction: TextInputAction.next,
+                                  textController: _locationController,
+                                  onChanged: onChangedLocation),
+                              PasswordInput(
+                                 validator: (v){
+                       return _checkEmptyField(v!);
+                    },
+                                icon: Icons.lock_outline_rounded,
+                                hint: 'Password',
+                                inputAction: TextInputAction.done,
+                                textController: _passwordController,
+                                onChanged: onChangedPassword,
                               ),
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, '/');
-                            },
-                            child: const Text(
-                              'Login',
-                              style: kBodyText4,
-                            ),
+                          Column(
+                            children: [
+                              const SizedBox(height: 50),
+                              RegisterButton(
+                                formKey: _formKey,
+                                f: f,
+                                img: fileName,
+                                buttonText: 'Register',
+                                email: email,
+                                name: name,
+                                location: location,
+                                password: password,
+                              ),
+                              Column(
+                                children: [
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    child: const Text(
+                                      'Already Have an account?',
+                                      style: kBodyText3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/');
+                                },
+                                child: const Text(
+                                  'Login',
+                                  style: kBodyText4,
+                                ),
+                              )
+                            ],
                           )
                         ],
-                      )
-                    ],
-                  ),
-                )
-              ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ),

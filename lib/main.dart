@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tahricha_app/screens/forgot_password_page.dart';
 import 'package:tahricha_app/screens/home/Myprofile/Editprofile/changepasswordp.dart';
@@ -22,18 +23,33 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+          bool loggedIn=false;
+
+  @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance
+  .authStateChanges()
+  .listen((User? user) {
+    setState(() {
+         loggedIn = user!=null;
+    });
+  });
     return MaterialApp(
       title: 'Flutter LoginPage',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const LoginPage(),
+      home:loggedIn ?const HomePage() : const LoginPage(),
       routes: {
         "ForgotPassword": (context) => const ForgotPasswordPAge(),
         "RegisterPage": (context) => const Register_page(),
