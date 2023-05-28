@@ -62,6 +62,7 @@ class RegisterButton extends StatelessWidget {
 
       final localUser = LocalUser(
         likes: [],
+        saved:[],
         pdp: url,
         dislikes: [],
         id: docUser.id,
@@ -74,7 +75,7 @@ class RegisterButton extends StatelessWidget {
 
       await docUser.set(json);
 
-      Navigator.of(context).pushNamed('RegisterPage');
+      Navigator.of(context).pushNamed('HomePage');
     } on FirebaseAuthException catch (e) {
       String error="";
       if (e.code == 'weak-password') {

@@ -51,7 +51,7 @@ class PostButton extends StatelessWidget {
       child: TextButton(
           onPressed: () {
             print('pressed');
-           if( formKey.currentState!.validate()&&f!=null&&good==null){
+           if( formKey.currentState!.validate()&&f!=null&&good!=null){
               createPost(
                 food: food,
                 description: description,

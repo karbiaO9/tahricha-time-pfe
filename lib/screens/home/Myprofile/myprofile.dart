@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tahricha_app/models/user.dart';
@@ -8,6 +9,8 @@ import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
 import 'package:tahricha_app/screens/home/reaction/dislike_button.dart';
 import 'package:tahricha_app/screens/home/reaction/like_button.dart';
 
+import '../../../home_widgets/widgets/bad_widget.dart';
+import '../../../home_widgets/widgets/good_widget.dart';
 import '../../../models/post.dart';
 
 class MyProfilePage extends StatefulWidget {
@@ -24,21 +27,14 @@ class _MyProfilePageState extends State<MyProfilePage> {
   @mustCallSuper
   void initState() {
     super.initState();
-    loadUserId();
   }
 
-  loadUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      userId = prefs.getString("userId") ?? "";
-    });
-  }
 
   Stream<List<LocalUser>> readUsers() => FirebaseFirestore.instance
       .collection('users')
       .where(
         'userId',
-        isEqualTo: userId,
+        isEqualTo: FirebaseAuth.instance.currentUser!.uid
       )
       .snapshots()
       .map((snapshot) =>
@@ -48,7 +44,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       .collection('posts')
       .where(
         'userId',
-        isEqualTo: userId,
+        isEqualTo: FirebaseAuth.instance.currentUser!.uid
       )
       .snapshots()
       .map((snapshot) =>
@@ -70,7 +66,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.edit),
+              icon:const Icon(Icons.edit),
               onPressed: () {
                 Navigator.of(context).pushNamed('EditProfile');
               },
@@ -78,74 +74,62 @@ class _MyProfilePageState extends State<MyProfilePage> {
           ],
           backgroundColor: Colors.red[600],
         ),
-        body: Container(
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: StreamBuilder<List<LocalUser>>(
-                        stream: readUsers(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text(
-                                'Something went wrong! ${snapshot.error} ');
-                          } else if (snapshot.hasData) {
-                            final users = snapshot.data!;
+        body: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                StreamBuilder<List<LocalUser>>(
+                    stream: readUsers(),
+                    builder: (context, snapshot) {   print(snapshot.data);
 
-                            return buildUser(users[0]);
-                          } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                        }),
-                  ),
-                  SizedBox(
-                    height: 2,
-                  ),
-                  Center(
-                    child: TextButton(
-                      onPressed: () => Navigator.pushNamed(context, 'NewPost'),
-                      child: Text(
-                        'What did you eat Last time ?!',
-                        style: kBodyTextNEW,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Expanded(
-                    child: StreamBuilder<List<Post>>(
-                        stream: readPosts(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text(
-                                'Something went wrong! ${snapshot.error} ');
-                          } else if (snapshot.hasData) {
-                            final posts = snapshot.data!;
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: posts.length,
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return _Post(posts[index], context);
-                              },
-                            );
-                          } else {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                        }),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                      if (snapshot.hasError) {
+                        return Text(
+                            'Something went wrong! ${snapshot.error} ');
+                      } else if (snapshot.hasData) {
+                        final users = snapshot.data!;
+
+                        return buildUser(users[0]);
+                      } else {
+                        return const Center(
+                            child: CircularProgressIndicator());
+                      }
+                    }),
+               const SizedBox(
+                  height: 2,
+                ),
+             
+               const SizedBox(
+                  height: 5,
+                ),
+                Expanded(
+                  child: StreamBuilder<List<Post>>(
+                      stream: readPosts(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              'Something went wrong! ${snapshot.error} ');
+                        } else if (snapshot.hasData) {
+                          final posts = snapshot.data!;
+                          return ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: posts.length,
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return _Post(posts[index], context);
+                            },
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      }),
+                ),
+              ],
+            ),
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -225,7 +209,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
 Widget _Post(Post post, BuildContext context) => Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
-        height: 200,
+        height: 400,
         width: 300,
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -234,6 +218,23 @@ Widget _Post(Post post, BuildContext context) => Padding(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+               Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children:[
+                     ClipRRect(
+                      borderRadius:const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+                      child: ColorFiltered(
+                        		colorFilter: const ColorFilter.mode(Color.fromARGB(34, 4, 4, 4), BlendMode.darken), 
+                        child: Image.network(post.image ,  width: 400,height: 200,fit: BoxFit.cover,))),
+                        Positioned(
+                          right:0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: post.good? const GoodWidget(): const BadWidget(),
+                          ),
+                        )
+                      ]
+                ),
               Row(children: [
                 const SizedBox(
                   width: 15,
@@ -397,15 +398,19 @@ void _deletePost(String postId) {
 }
 
 Widget buildUser(LocalUser user) => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Center(
-            child: Text(
+  padding: const EdgeInsets.all(18.0),
+  child:   SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+               CircleAvatar(backgroundImage: NetworkImage(user.pdp),radius: 60,),
+  
+            Text(
               user.name,
               style: kBodyTextP,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    );
+);
