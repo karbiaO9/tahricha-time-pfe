@@ -7,13 +7,15 @@ class LocalUser {
   final String name;
   final String userId;
   final String location;
-  final List<String> likes;
-  final List<String> dislikes;
+  final List<dynamic> likes;
+  final List<dynamic> dislikes;
+  final List<dynamic> saved;
   final String pdp;
 
 
   LocalUser({
     this.id = '',
+    required this.saved,
     required this.pdp,
     required this.likes,
     required this.dislikes,
@@ -26,6 +28,7 @@ class LocalUser {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
+        'saved':saved,
         'email': email,
         'location': location,
         'userId': userId,
@@ -37,6 +40,7 @@ class LocalUser {
   static LocalUser fromJson(Map<String, dynamic> json) => LocalUser(
         id: json['id'] ?? "",
         pdp: json['photo'] ?? "",
+        saved: json['saved'] ?? [],
         likes: json['likes'] ?? [],
         dislikes: json['dislikes'] ?? [],
         name: json['name'] ?? "",

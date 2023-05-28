@@ -74,7 +74,7 @@ Future<LocalUser?> getUser(String uid)async{
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                 const SizedBox(
                     height: 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -280,7 +280,7 @@ Future<LocalUser?> getUser(String uid)async{
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.bookmark_add_outlined),
-                      color: Colors.blue),
+                      color: Colors.grey),
                   const SizedBox(
                     width: 10,
                   ),
@@ -305,7 +305,7 @@ Future<LocalUser?> getUser(String uid)async{
                 ),
                 Row(
                   children: [
-                    Text(
+                   const Text(
                       'Description :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -319,7 +319,7 @@ Future<LocalUser?> getUser(String uid)async{
                 ),
                 Row(
                   children: [
-                    Text(
+                  const  Text(
                       'Location :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -333,7 +333,7 @@ Future<LocalUser?> getUser(String uid)async{
                 ),
                 Row(
                   children: [
-                    Text(
+                  const  Text(
                       'Restaurant :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -347,7 +347,7 @@ Future<LocalUser?> getUser(String uid)async{
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Price:  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
