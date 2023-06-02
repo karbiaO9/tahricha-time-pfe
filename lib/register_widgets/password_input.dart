@@ -10,6 +10,7 @@ class PasswordInput extends StatefulWidget {
     required this.inputAction,
     required this.textController,
     required this.onChanged,
+    this.validator
   }) : super(key: key);
 
   final IconData icon;
@@ -17,6 +18,8 @@ class PasswordInput extends StatefulWidget {
   final TextInputAction inputAction;
   final TextEditingController textController;
   final Function(String) onChanged;
+    final String? Function(String?)? validator;
+
   @override
   State<PasswordInput> createState() => _PasswordInputState();
 }
@@ -32,7 +35,8 @@ class _PasswordInputState extends State<PasswordInput> {
           border: Border.all(color: Colors.black, width: 2),
           borderRadius: BorderRadius.circular(30),
         ),
-        child: TextField(
+        child: TextFormField(
+          validator: widget.validator,
           controller: widget.textController,
           onChanged: (String value) {
             widget.onChanged(value);

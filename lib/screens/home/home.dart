@@ -1,22 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:tahricha_app/home_widgets/widgets/good_widget.dart';
+import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
 import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
 import 'package:tahricha_app/screens/home/reaction/dislike_button.dart';
 import 'package:tahricha_app/screens/home/reaction/like_button.dart';
 
+import '../../home_widgets/widgets/bad_widget.dart';
 import '../../models/post.dart';
 import '../../home_widgets/find/findRest.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+  
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
       .snapshots()
       .map((snapshot) =>
           snapshot.docs.map((doc) => Post.fromJson(doc.data())).toList());
+
+Future<LocalUser?> getUser(String uid)async{
+      CollectionReference users = FirebaseFirestore.instance.collection('users');
+    QuerySnapshot querySnapshot = await users.get();
+   List<LocalUser> usrs=[];
+    final allData = querySnapshot.docs;
+    for(QueryDocumentSnapshot<Object?>  o in allData){
+      usrs.add(
+          LocalUser.fromJson(o.data() as Map<String,dynamic>)
+      );
+    }    
+    print(usrs);
+     late LocalUser currentusr;
+  for(LocalUser u in usrs){
+    if(u.userId.toString()==uid){
+      currentusr = u;
+      break;
+      }
+    return currentusr;   
+  }}
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +74,7 @@ class HomePage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                 const SizedBox(
                     height: 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -155,10 +188,12 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _Post(Post post, BuildContext context) => Padding(
+ Widget _Post(Post post, BuildContext context) {
+
+    return Padding(
         padding: const EdgeInsets.all(6.0),
         child: Container(
-          height: 200,
+          height: 400,
           width: 300,
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -167,11 +202,37 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children:[
+                     ClipRRect(
+                      borderRadius:const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+                      child: ColorFiltered(
+                        		colorFilter: const ColorFilter.mode(Color.fromARGB(34, 4, 4, 4), BlendMode.darken), 
+                        child: Image.network(post.image ,  width: 400,height: 200,fit: BoxFit.cover,))),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                            Row(children: [
+                               CircleAvatar(backgroundImage: NetworkImage(post.image),),
+                            const SizedBox(width: 5,),
+                            Text('user name',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
+                            ],),
+                           
+                           post.good? const GoodWidget(): const BadWidget()
+                          ],),
+                        )
+                      ]
+                ),
                 Row(children: [
                   const SizedBox(
                     width: 30,
                   ),
                   LikeButton(
+                    good: post.good,
+                    image: post.image,
                     food: post.food,
                     description: post.description,
                     location: post.location,
@@ -190,6 +251,8 @@ class HomePage extends StatelessWidget {
                     width: 10,
                   ),
                   DislikeButton(
+                    good:post.good,
+                    image: post.image,
                     food: post.food,
                     description: post.description,
                     location: post.location,
@@ -217,7 +280,7 @@ class HomePage extends StatelessWidget {
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.bookmark_add_outlined),
-                      color: Colors.blue),
+                      color: Colors.grey),
                   const SizedBox(
                     width: 10,
                   ),
@@ -228,7 +291,7 @@ class HomePage extends StatelessWidget {
                 ]),
                 Row(
                   children: [
-                    Text(
+                   const Text(
                       'Food :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -242,7 +305,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                   const Text(
                       'Description :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -256,7 +319,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                  const  Text(
                       'Location :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -270,7 +333,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                  const  Text(
                       'Restaurant :  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -284,7 +347,7 @@ class HomePage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       'Price:  ',
                       style: kBodyText1,
                       textAlign: TextAlign.justify,
@@ -300,5 +363,5 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-      );
+    );}
 }

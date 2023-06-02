@@ -34,6 +34,8 @@ class _EditPostPageState extends State<EditPostPage> {
   late String price;
   late String location;
   late String restaurant;
+  late String image;
+  late bool good;
 
   @override
   void initState() {
@@ -57,6 +59,10 @@ class _EditPostPageState extends State<EditPostPage> {
     //init restaurant
     _restaurantController.text = widget.post.restaurant;
     restaurant = widget.post.restaurant;
+
+    good=widget.post.good;
+
+    image =widget.post.image;
   }
 
   void onChangedFood(String value) {
@@ -188,9 +194,55 @@ class _EditPostPageState extends State<EditPostPage> {
                   const SizedBox(
                     height: 20,
                   ),
+                   const Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Text(
+                      'Rating',
+                      style: kBodyText2,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red[600],
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    height: 50,
+                    width: 300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                good=true;
+                              });
+                            },
+                            child:  Text(
+                              'Good',
+                              style: good==true ? kBodyText14: kBodyText13,
+                            )),
+                        const VerticalDivider(
+                          thickness: 2,
+                          color: Colors.white,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                good=false;
+                              });
+                            },
+                            child:  Text(
+                              'Bad  ',
+                              style: good==false ? kBodyText14: kBodyText13,
+                            ))
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: EditPostButton(
+                      good: good,
+                      image: image,
                       buttonText: 'Save changes',
                       description: description,
                       food: food,

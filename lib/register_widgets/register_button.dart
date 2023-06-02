@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tahricha_app/models/user.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 
 import '../palatte.dart';
 
@@ -11,8 +16,15 @@ class RegisterButton extends StatelessWidget {
   final String password;
   final String name;
   final String location;
+  final String img;
+  final File ? f;
+  final GlobalKey<FormState> formKey;
+
 
   const RegisterButton({
+    required this.formKey,
+    required this.f,
+    required this.img,
     required this.buttonText,
     required this.email,
     required this.password,
@@ -21,7 +33,7 @@ class RegisterButton extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future<User?> registerUsingEmailPassword({
+  Future<void> registerUsingEmailPassword({
     required String name,
     required String email,
     required String password,
@@ -42,8 +54,17 @@ class RegisterButton extends StatelessWidget {
       user = auth.currentUser;
 
       final docUser = FirebaseFirestore.instance.collection('users').doc();
+       final ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('photos/${img+DateTime.now().toString()}');
+    await ref.putFile(f!);
+    String url = await ref.getDownloadURL();
 
       final localUser = LocalUser(
+        likes: [],
+        saved:[],
+        pdp: url,
+        dislikes: [],
         id: docUser.id,
         email: email,
         name: name,
@@ -54,15 +75,24 @@ class RegisterButton extends StatelessWidget {
 
       await docUser.set(json);
 
-      Navigator.of(context).pushNamed('/');
+      Navigator.of(context).pushNamed('HomePage');
     } on FirebaseAuthException catch (e) {
+      String error="";
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        error = 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        error = 'The account already exists for that email.';
       }
+        Fluttertoast.showToast(
+        msg: error,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+        fontSize: 16.0
+    ); 
     }
-    return user;
   }
 
   @override
@@ -74,20 +104,21 @@ class RegisterButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(35)),
       child: TextButton(
           onPressed: () {
+            if( formKey.currentState!.validate()&&f!=null){
             registerUsingEmailPassword(
                 email: email,
                 name: name,
                 location: location,
                 password: password,
                 context: context);
-          },
+          }},
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: Text(
               buttonText,
               style: kBodyText1,
             ),
-          )),
+            )),
     );
   }
 }

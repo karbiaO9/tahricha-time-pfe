@@ -1,13 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../palatte.dart';
 
 class NewButton extends StatelessWidget {
   const NewButton({
     Key? key,
+    
     required this.buttonText,
   }) : super(key: key);
   final String buttonText;
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Container(

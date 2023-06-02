@@ -65,9 +65,12 @@ const TextStyle kBodyText123 = TextStyle(
 
 const TextStyle kBodyText13 = TextStyle(
   fontSize: 20,
+  color: Color.fromARGB(255, 243, 162, 162),
+);
+const TextStyle kBodyText14 = TextStyle(
+  fontSize: 20,
   color: Colors.white,
 );
-
 const TextStyle kBodyText2 = TextStyle(
   fontSize: 22,
   color: Colors.black,

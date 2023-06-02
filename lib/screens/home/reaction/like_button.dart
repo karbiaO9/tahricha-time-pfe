@@ -9,11 +9,15 @@ class LikeButton extends StatelessWidget {
   final String restaurant;
   final String price;
   final String id;
+  final bool good;
   final String userId;
   final int likes;
   final int dislikes;
+  final String image;
   const LikeButton({
     Key? key,
+    required this.good,
+    required this.image,
     required this.food,
     required this.description,
     required this.location,
@@ -45,7 +49,8 @@ class LikeButton extends StatelessWidget {
   }
 
   Future editPost(
-      {required String food,
+      {
+      required String food,
       required String description,
       required String location,
       required String restaurant,
@@ -57,6 +62,8 @@ class LikeButton extends StatelessWidget {
     final docPost = FirebaseFirestore.instance.collection('posts').doc(id);
 
     final post = Post(
+      good: good,
+      image: image,
         id: docPost.id,
         food: food,
         description: description,

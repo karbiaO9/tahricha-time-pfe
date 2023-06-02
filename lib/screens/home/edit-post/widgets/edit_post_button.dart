@@ -13,10 +13,13 @@ class EditPostButton extends StatelessWidget {
   final String id;
   final String userId;
   final int likes;
+  final bool good;
   final int dislikes;
+  final String image;
 
   const EditPostButton({
     Key? key,
+    required this.image,
     required this.buttonText,
     required this.food,
     required this.description,
@@ -26,6 +29,7 @@ class EditPostButton extends StatelessWidget {
     required this.id,
     required this.userId,
     required this.likes,
+    required this.good,
     required this.dislikes,
   }) : super(key: key);
   final String buttonText;
@@ -41,6 +45,7 @@ class EditPostButton extends StatelessWidget {
       child: TextButton(
           onPressed: () {
             editPost(
+              good:good,
               food: food,
               description: description,
               location: location,
@@ -70,12 +75,15 @@ class EditPostButton extends StatelessWidget {
       required String restaurant,
       required String price,
       required String id,
+      required bool good,
       required String userId,
       required int likes,
       required int dislikes}) async {
     final docPost = FirebaseFirestore.instance.collection('posts').doc(id);
 
     final post = Post(
+      good:good,
+      image: image,
         id: docPost.id,
         food: food,
         description: description,
