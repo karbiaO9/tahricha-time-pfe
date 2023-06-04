@@ -14,7 +14,7 @@ class TextInput extends StatefulWidget {
     this.validator
   }) : super(key: key);
 
-  final IconData icon;
+  final IconData? icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;

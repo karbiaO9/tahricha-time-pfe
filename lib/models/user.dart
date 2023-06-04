@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class LocalUser {
   String id;
   final String email;
-  final String name;
+   String name;
   final String userId;
-  final String location;
+   String location;
+  final List<dynamic> reports;
   final List<dynamic> likes;
   final List<dynamic> dislikes;
   final List<dynamic> saved;
@@ -15,6 +16,7 @@ class LocalUser {
 
   LocalUser({
     this.id = '',
+    required this.reports,
     required this.saved,
     required this.pdp,
     required this.likes,
@@ -28,6 +30,7 @@ class LocalUser {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
+        'reports':reports,
         'saved':saved,
         'email': email,
         'location': location,
@@ -42,6 +45,7 @@ class LocalUser {
         pdp: json['photo'] ?? "",
         saved: json['saved'] ?? [],
         likes: json['likes'] ?? [],
+        reports: json['reports'] ?? [],
         dislikes: json['dislikes'] ?? [],
         name: json['name'] ?? "",
         email: json['email'] ?? "",

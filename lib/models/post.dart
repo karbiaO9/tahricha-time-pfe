@@ -1,5 +1,7 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tahricha_app/models/comment.dart';
 
 class Post {
   String id;
@@ -9,12 +11,14 @@ class Post {
   final String restaurant;
   final String price;
   final String userId;
-  final int likes;
-  final int dislikes;
+   int likes;
+   int dislikes;
   final String image;
   final bool good;
+  List<dynamic> comments;
 
   Post({
+    required this.comments,
     required this.good,
     this.id = '',
     required this.food,
@@ -28,6 +32,7 @@ class Post {
     required this.image
   });
   Map<String, dynamic> toJson() => {
+    'comments':comments,
         'good':good,
         'id': id,
         'food': food,
@@ -42,6 +47,7 @@ class Post {
       };
 
   static Post fromJson(Map<String, dynamic> json) => Post(
+      comments: json['comments']??[],
       good: json['good'] ?? true,
       id: json['id'] ?? "",
       food: json['food'] ?? "",

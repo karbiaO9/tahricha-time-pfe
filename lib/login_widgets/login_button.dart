@@ -26,7 +26,11 @@ class LoginButton extends StatelessWidget {
   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
     email: email,
     password: password,
-  );
+  ).then((value) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('currentPassword', password);
+
+  });
   Navigator.pushNamed(context, 'HomePage');
 } on FirebaseAuthException catch (e) {
   if (e.code == 'user-not-found') {

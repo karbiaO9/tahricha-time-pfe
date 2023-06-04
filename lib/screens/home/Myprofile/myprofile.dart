@@ -1,26 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expandable/expandable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tahricha_app/home_widgets/widgets/comment_widget.dart';
 import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
+import 'package:tahricha_app/screens/home/Myprofile/Editprofile/editprofile.dart';
 import 'package:tahricha_app/screens/home/edit-post/edit_post_page.dart';
-import 'package:tahricha_app/screens/home/reaction/dislike_button.dart';
-import 'package:tahricha_app/screens/home/reaction/like_button.dart';
+import 'package:tahricha_app/screens/login_page.dart';
+
 
 import '../../../home_widgets/widgets/bad_widget.dart';
 import '../../../home_widgets/widgets/good_widget.dart';
 import '../../../models/post.dart';
+import '../home.dart';
 
 class MyProfilePage extends StatefulWidget {
-  const MyProfilePage({Key? key}) : super(key: key);
+
+   MyProfilePage({Key? key}) : super(key: key);
 
   @override
   State<MyProfilePage> createState() => _MyProfilePageState();
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  
   String userId = '';
 
   @override
@@ -29,16 +34,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
     super.initState();
   }
 
-
-  Stream<List<LocalUser>> readUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .where(
-        'userId',
-        isEqualTo: FirebaseAuth.instance.currentUser!.uid
-      )
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
 
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
       .collection('posts')
@@ -58,6 +53,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         resizeToAvoidBottomInset: true,
         backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
+         automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text(
             'My Profile',
@@ -68,8 +64,35 @@ class _MyProfilePageState extends State<MyProfilePage> {
             IconButton(
               icon:const Icon(Icons.edit),
               onPressed: () {
-                Navigator.of(context).pushNamed('EditProfile');
+                Navigator.of(context).push(MaterialPageRoute(builder: (_)=>EditProfilePage(user:HomePage.currentUser)));
               },
+            ),
+            IconButton(
+              icon:const Icon(Icons.exit_to_app_outlined),
+              onPressed: () {
+showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text("log out"),
+                  content: const Text("are you sure you want to log out"),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () async{
+                       Navigator.of(context).popAndPushNamed('LogIn');
+                        await FirebaseAuth.instance.signOut();
+                      },
+                      child: const Text("yes",style: TextStyle(color:Colors.grey),),
+                    ),
+                     TextButton(
+                      onPressed: () async{
+                         Navigator.of(ctx).pop();
+
+                      },
+                      child: const Text("no"),
+                    ),
+                  ],
+                ),
+              );              },
             ),
           ],
           backgroundColor: Colors.red[600],
@@ -79,22 +102,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                StreamBuilder<List<LocalUser>>(
-                    stream: readUsers(),
-                    builder: (context, snapshot) {   print(snapshot.data);
-
-                      if (snapshot.hasError) {
-                        return Text(
-                            'Something went wrong! ${snapshot.error} ');
-                      } else if (snapshot.hasData) {
-                        final users = snapshot.data!;
-
-                        return buildUser(users[0]);
-                      } else {
-                        return const Center(
-                            child: CircularProgressIndicator());
-                      }
-                    }),
+                buildUser(HomePage.currentUser),
                const SizedBox(
                   height: 2,
                 ),
@@ -118,7 +126,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                 (BuildContext context, int index) =>
                                     const Divider(),
                             itemBuilder: (BuildContext context, int index) {
-                              return _Post(posts[index], context);
+                              return ProfilePost(post:posts[index]);
                             },
                           );
                         } else {
@@ -146,13 +154,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
             children: [
               // Home
               InkWell(
-                onTap: () => Navigator.pushNamed(context, 'HomePage'),
+                onTap: () => Navigator.pushReplacementNamed(context, 'HomePage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.home,
+                        Icons.home_outlined,
                         color: Theme.of(context).colorScheme.secondary,
                         size: 37.0, // Increase the size here
                       ),
@@ -183,7 +191,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               ),
               // Saved
               InkWell(
-                onTap: () => Navigator.pushNamed(context, 'SavedPage'),
+                onTap: () => Navigator.pushReplacementNamed(context, 'SavedPage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
@@ -204,199 +212,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
       ),
     );
   }
-}
-
-Widget _Post(Post post, BuildContext context) => Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Container(
-        height: 400,
-        width: 300,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            color: Colors.white70),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Stack(
-                  alignment: AlignmentDirectional.topCenter,
-                  children:[
-                     ClipRRect(
-                      borderRadius:const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-                      child: ColorFiltered(
-                        		colorFilter: const ColorFilter.mode(Color.fromARGB(34, 4, 4, 4), BlendMode.darken), 
-                        child: Image.network(post.image ,  width: 400,height: 200,fit: BoxFit.cover,))),
-                        Positioned(
-                          right:0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: post.good? const GoodWidget(): const BadWidget(),
-                          ),
-                        )
-                      ]
-                ),
-              Row(children: [
-                const SizedBox(
-                  width: 15,
-                ),
-                LikeButton(
-                  good: post.good,
-                  image: post.image,
-                  food: post.food,
-                  description: post.description,
-                  location: post.location,
-                  restaurant: post.restaurant,
-                  price: post.price,
-                  id: post.id,
-                  userId: post.userId,
-                  likes: post.likes,
-                  dislikes: post.dislikes,
-                ),
-                Text(
-                  post.likes.toString(),
-                  style: kBodyText001,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                DislikeButton(
-                  good: post.good,
-                  image: post.image,
-                  food: post.food,
-                  description: post.description,
-                  location: post.location,
-                  restaurant: post.restaurant,
-                  price: post.price,
-                  id: post.id,
-                  userId: post.userId,
-                  likes: post.likes,
-                  dislikes: post.dislikes,
-                ),
-                Text(
-                  post.dislikes.toString(),
-                  style: kBodyText001,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.comment),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_add_outlined),
-                    color: Colors.blue),
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditPostPage(post: post)),
-                      );
-                    },
-                    icon: const Icon(Icons.update),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                IconButton(
-                    onPressed: () {
-                      _deletePost(post.id);
-                    },
-                    icon: const Icon(Icons.delete),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-              ]),
-              Row(
-                children: [
-                  Text(
-                    'Food :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.food,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Description :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.description,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Location :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.location,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Restaurant :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.restaurant,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Price:  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.price,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-void _deletePost(String postId) {
-  FirebaseFirestore.instance
-      .collection('posts')
-      .doc(postId)
-      .delete()
-      .then((value) {
-    // Post deletion successful
-    print('Post deleted successfully');
-  }).catchError((error) {
-    // Handle any error that occurred during deletion
-    print('Error deleting post: $error');
-  });
-}
-
 Widget buildUser(LocalUser user) => Padding(
   padding: const EdgeInsets.all(18.0),
   child:   SizedBox(
@@ -414,3 +229,261 @@ Widget buildUser(LocalUser user) => Padding(
         ),
       ),
 );
+}
+  bool liked =false;
+bool disliked =false;
+Future<void> like_btn(Post post) async {
+  List<dynamic> _likedPostes = HomePage.currentUser.likes;
+  List<dynamic> _dislikedPostes = HomePage.currentUser.dislikes;
+
+
+  if(!_likedPostes.contains(post.id) && !_dislikedPostes.contains(post.id)){
+    post.likes++;
+    HomePage.currentUser.likes.add(post.id);
+    liked=true;
+    disliked=false;
+  }else if(!_likedPostes.contains(post.id) && _dislikedPostes.contains(post.id)){
+      post.likes++;
+      HomePage.currentUser.likes.add(post.id);
+      post.dislikes--;
+      HomePage.currentUser.dislikes.remove(post.id);
+      liked=true;
+      disliked=false;
+  }
+      final docPost = FirebaseFirestore.instance.collection('posts').doc(post.id);
+       await docPost.update(post.toJson());
+       final docUser = FirebaseFirestore.instance.collection('users').doc(HomePage.currentUser.id);
+       await docUser.update(HomePage.currentUser.toJson());
+
+
+}
+Future<void> dislike_btn(Post post)async{
+  List<dynamic> _likedPostes = HomePage.currentUser.likes;
+  List<dynamic> _dislikedPostes = HomePage.currentUser.dislikes;
+
+
+  if(!_likedPostes.contains(post.id) && !_dislikedPostes.contains(post.id)){
+    post.dislikes++;
+    HomePage.currentUser.dislikes.add(post.id);
+    disliked=true;
+    liked=false;
+  }else if(!_dislikedPostes.contains(post.id) && _likedPostes.contains(post.id)){
+      post.dislikes++;
+      HomePage.currentUser.dislikes.add(post.id);
+      post.likes--;
+      HomePage.currentUser.likes.remove(post.id);
+      disliked=true;
+      liked=false;
+  }
+  final docPost = FirebaseFirestore.instance.collection('posts').doc(post.id);
+       await docPost.update(post.toJson());
+       final docUser = FirebaseFirestore.instance.collection('users').doc(HomePage.currentUser.id);
+       await docUser.update(HomePage.currentUser.toJson());
+}
+
+
+
+  
+
+class ProfilePost extends StatefulWidget {
+ final Post post;
+  const ProfilePost({Key? key,required this.post}) : super(key: key);
+  @override
+  State<ProfilePost> createState() => _ProfilePostState();
+}
+
+class _ProfilePostState extends State<ProfilePost> {
+  late ExpandableController contoller;
+  bool toggel = false;
+  @override
+  void initState() {
+    super.initState();
+    contoller=ExpandableController();
+    liked=HomePage.currentUser.likes.contains(widget.post.id);
+  disliked=HomePage.currentUser.dislikes.contains(widget.post.id);
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    contoller.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Container(
+        width: 300,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            color: Colors.white70),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children:[
+                     ClipRRect(
+                      borderRadius:const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+                      child: ColorFiltered(
+                            colorFilter: const ColorFilter.mode(Color.fromARGB(34, 4, 4, 4), BlendMode.darken), 
+                        child: Image.network(widget.post.image ,  width: 400,height: 200,fit: BoxFit.cover,))),
+                        Positioned(
+                          right:0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: widget.post.good? const GoodWidget(): const BadWidget(),
+                          ),
+                        )
+                      ]
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                IconButton(onPressed: ()async{
+                  await like_btn(widget.post);
+                }, icon: Icon(Icons.thumb_up,color: liked?Colors.blue:Colors.grey,)),
+                Text(
+                  widget.post.likes.toString(),
+                  style: kBodyText001,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                  IconButton(onPressed: ()async{
+                  await dislike_btn(widget.post);
+                }, icon: Icon(Icons.thumb_down,color: disliked?Colors.blue:Colors.grey,)),
+                Text(
+                  widget.post.dislikes.toString(),
+                  style: kBodyText001,
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                IconButton(
+                    onPressed: () {
+                      contoller.toggle();
+                      setState(() {
+                        toggel=!toggel;
+                      });
+                    },
+                    icon:  Icon(Icons.comment,color: toggel?Colors.blue:Colors.grey,),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                const SizedBox(
+                  width: 10,
+                ),
+               
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditPostPage(post: widget.post)),
+                      );
+                    },
+                    icon: const Icon(Icons.update),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                IconButton(
+                    onPressed: () {
+                      _deletePost(widget.post.id);
+                    },
+                    icon: const Icon(Icons.delete),
+                    color: const Color.fromRGBO(62, 62, 104, 100)),
+              ]),
+              Row(
+                children: [
+               const   Text(
+                    'Food :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    widget.post.food,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                const  Text(
+                    'Description :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    widget.post.description,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                 const Text(
+                    'Location :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    widget.post.location,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                const  Text(
+                    'Restaurant :  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    widget.post.restaurant,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                const  Text(
+                    'Price:  ',
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                  Text(
+                    widget.post.price,
+                    style: kBodyText1,
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+         ExpandablePanel(
+          controller: contoller,
+          collapsed: Container(),
+           expanded: CommentWidget(user: HomePage.currentUser, post: widget.post,))
+            ],
+          ),
+        ),
+      ),
+    );
+}
+
+void _deletePost(String postId) {
+  FirebaseFirestore.instance
+      .collection('posts')
+      .doc(postId)
+      .delete()
+      .then((value) {
+    // Post deletion successful
+    print('Post deleted successfully');
+  }).catchError((error) {
+    // Handle any error that occurred during deletion
+    print('Error deleting post: $error');
+  });
+}
+
+
+  }

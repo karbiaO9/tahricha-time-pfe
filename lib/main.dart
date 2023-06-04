@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tahricha_app/screens/forgot_password_page.dart';
-import 'package:tahricha_app/screens/home/Myprofile/Editprofile/changepasswordp.dart';
 import 'package:tahricha_app/screens/home/Myprofile/Editprofile/editprofile.dart';
 import 'package:tahricha_app/screens/home/Myprofile/myprofile.dart';
 import 'package:tahricha_app/screens/home/filter.dart';
@@ -10,7 +9,6 @@ import 'package:tahricha_app/screens/home/newpost_page.dart';
 import 'package:tahricha_app/screens/home/saved.dart';
 import 'package:tahricha_app/screens/login_page.dart';
 import 'package:tahricha_app/screens/register_page.dart';
-import 'screens/home/Myprofile/Editprofile/editinfop.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -36,7 +34,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    //  FirebaseAuth.instance.signOut();
 
     FirebaseAuth.instance
   .authStateChanges()
@@ -57,12 +54,12 @@ class _MyAppState extends State<MyApp> {
         "RegisterPage": (context) => const Register_page(),
         "HomePage": (context) => const HomePage(),
         "SavedPage": (context) => const SavedPage(),
-        "MyProfile": (context) => const MyProfilePage(),
-        "EditProfile": (context) => const EditProfilePage(),
-        "EditInfo": (context) => const EditInfoPage(),
+                "LogIn": (context) => const LoginPage(),
+
+        "MyProfile": (context) =>  MyProfilePage(),
+      //  "EditProfile": (context) => const EditProfilePage(),
         "NewPost": (context) => const NewPostPage(),
         "Filter": (context) => const FilterPage(),
-        "ChangePassword": (context) => const ChangePassowrdPage()
       },
     );
   }

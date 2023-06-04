@@ -283,6 +283,7 @@ class _NewPostPageState extends State<NewPostPage> {
                     padding:const EdgeInsets.all(20.0),
                     child: PostButton(
                       good: good,
+                      comments: [],
                       formKey: _formKey,
                         image:fileName,
                         f: f,

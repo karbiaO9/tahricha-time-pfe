@@ -194,7 +194,7 @@ class _Register_pageState extends State<Register_page> {
                               Column(
                                 children: [
                                   const SizedBox(height: 10),
-                                  Container(
+                                   Container(
                                     child: const Text(
                                       'Already Have an account?',
                                       style: kBodyText3,

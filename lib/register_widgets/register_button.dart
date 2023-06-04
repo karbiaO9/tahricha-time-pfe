@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tahricha_app/models/user.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
@@ -38,6 +39,7 @@ class RegisterButton extends StatelessWidget {
     required String email,
     required String password,
     required String location,
+    required String image,
     required BuildContext context,
   }) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -49,9 +51,7 @@ class RegisterButton extends StatelessWidget {
       );
 
       user = userCredential.user;
-      await user!.updateProfile(displayName: name);
-      await user.reload();
-      user = auth.currentUser;
+     
 
       final docUser = FirebaseFirestore.instance.collection('users').doc();
        final ref = firebase_storage.FirebaseStorage.instance
@@ -65,6 +65,7 @@ class RegisterButton extends StatelessWidget {
         saved:[],
         pdp: url,
         dislikes: [],
+        reports: [],
         id: docUser.id,
         email: email,
         name: name,
@@ -74,6 +75,10 @@ class RegisterButton extends StatelessWidget {
       final json = localUser.toJson();
 
       await docUser.set(json);
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('currentPassword', password);
+
 
       Navigator.of(context).pushNamed('HomePage');
     } on FirebaseAuthException catch (e) {
@@ -108,6 +113,7 @@ class RegisterButton extends StatelessWidget {
             registerUsingEmailPassword(
                 email: email,
                 name: name,
+                image: img,
                 location: location,
                 password: password,
                 context: context);

@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 import '../../palatte.dart';
 
 class Input extends StatelessWidget {
+
   const Input({
     Key? key,
     required this.icon,
     required this.hint,
     required this.inputType,
     required this.inputAction,
+    required this.value,
+    required this.onChanged,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
+  final String value;
+  final Function(String) onChanged;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +35,8 @@ class Input extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
+          controller: TextEditingController.fromValue(TextEditingValue(text: value)),
+          onChanged: onChanged,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,

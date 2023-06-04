@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
-class FindR extends StatelessWidget {
-  const FindR({
+import '../../screens/home/home.dart';
+
+class FindR extends StatefulWidget {
+   FindR({
     Key? key,
     required this.icon,
     required this.hint,
@@ -12,6 +14,13 @@ class FindR extends StatelessWidget {
   final IconData icon;
   final String hint;
   final TextInputAction inputAction;
+
+  @override
+  State<FindR> createState() => _FindRState();
+}
+
+class _FindRState extends State<FindR> {
+  String _search='';
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +33,19 @@ class FindR extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         child: TextField(
+          onChanged: (v){
+            setState(() {
+               _search=v;
+               HomePage.filtredPosts= HomePage.posts.where((element) => element.food.contains(_search)).toList();
+              print('filtred       ${HomePage.filtredPosts}');
+
+            });
+             
+          },
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.symmetric(vertical: 10),
             border: InputBorder.none,
-            hintText: hint,
+            hintText: widget.hint,
             suffixIcon: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
@@ -47,7 +65,7 @@ class FindR extends StatelessWidget {
             prefixIcon: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Icon(
-                icon,
+                widget.icon,
                 color: Colors.grey,
               ),
             ),

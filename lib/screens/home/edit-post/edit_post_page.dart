@@ -241,6 +241,7 @@ class _EditPostPageState extends State<EditPostPage> {
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: EditPostButton(
+                      comments: widget.post.comments,
                       good: good,
                       image: image,
                       buttonText: 'Save changes',

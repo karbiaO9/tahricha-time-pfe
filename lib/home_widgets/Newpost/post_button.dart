@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:tahricha_app/models/comment.dart';
 
 import 'package:tahricha_app/palatte.dart';
 
@@ -21,11 +22,14 @@ class PostButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final String image;
   final File? f;
+  final comments;
 
 
   const PostButton({
     Key? key,
      this.f,
+
+     required this.comments,
      required this.good,
     required this.buttonText,
     required this.food,
@@ -61,7 +65,8 @@ class PostButton extends StatelessWidget {
                 likes: likes,
                 image:image,
                 f:f!,
-                dislikes: dislikes);
+                dislikes: dislikes,
+                 comments: []);
             Navigator.of(context).pushNamed('HomePage');
            }
             
@@ -77,7 +82,8 @@ class PostButton extends StatelessWidget {
   }
 
   Future createPost(
-      {required String food,
+      {required List<dynamic>comments,
+        required String food,
       required String description,
       required String location,
       required String restaurant,
@@ -92,8 +98,8 @@ class PostButton extends StatelessWidget {
           .child('images/${image+DateTime.now().toString()}');
     await ref.putFile(f);
     String url = await ref.getDownloadURL();
-
     final post = Post(
+        comments:[],
         good: good!,
         id: docPost.id,
         food: food,

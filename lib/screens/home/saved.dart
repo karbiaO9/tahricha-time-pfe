@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tahricha_app/palatte.dart';
+import 'package:tahricha_app/screens/home/home.dart';
 
-import '../../Models/post.dart';
+import '../../models/post.dart';
+
 
 class SavedPage extends StatelessWidget {
   const SavedPage({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class SavedPage extends StatelessWidget {
         resizeToAvoidBottomInset: true,
         backgroundColor: const Color.fromRGBO(249, 50, 9, .2),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text(
             'Saved Posts',
@@ -48,14 +51,15 @@ class SavedPage extends StatelessWidget {
                                 'Something went wrong! ${snapshot.error} ');
                           } else if (snapshot.hasData) {
                             final posts = snapshot.data!;
-                            return ListView.separated(
+                            return ListView.builder(
                               shrinkWrap: true,
                               itemCount: posts.length,
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
                               itemBuilder: (BuildContext context, int index) {
-                                return _Post(posts[index]);
+                                if(HomePage.currentUser.saved.contains(posts[index].id)){
+                                
+                                                                  return PostWidget(post:posts[index],user:HomePage.users);
+
+                                }
                               },
                             );
                           } else {
@@ -83,13 +87,13 @@ class SavedPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InkWell(
-                onTap: () => Navigator.pushNamed(context, 'HomePage'),
+                onTap: () => Navigator.pushReplacementNamed(context, 'HomePage'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.home,
+                        Icons.home_outlined,
                         color: Theme.of(context).colorScheme.secondary,
                         size: 37.0, // Increase the size here
                       ),
@@ -118,13 +122,13 @@ class SavedPage extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, 'MyProfile'),
+                onTap: () => Navigator.pushReplacementNamed(context, 'MyProfile'),
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Column(
                     children: <Widget>[
                       Icon(
-                        Icons.bookmark_outline,
+                        Icons.person_outline_outlined,
                         color: Theme.of(context).colorScheme.secondary,
                         size: 37.0, // Increase the size here
                       ),
@@ -141,131 +145,3 @@ class SavedPage extends StatelessWidget {
   }
 }
 
-Widget _Post(Post post) => Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Container(
-        height: 200,
-        width: 300,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            color: Colors.white70),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(children: [
-                const SizedBox(
-                  width: 30,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_up),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '10',
-                  style: kBodyText001,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.thumb_down),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const Text(
-                  '4',
-                  style: kBodyText001,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.comment),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark),
-                    color: Colors.blue),
-                const SizedBox(
-                  width: 10,
-                ),
-              ]),
-              Row(
-                children: [
-                  Text(
-                    'Food :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.food,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Description :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.description,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Location :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.location,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Restaurant :  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.restaurant,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Price:  ',
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                  Text(
-                    post.price,
-                    style: kBodyText1,
-                    textAlign: TextAlign.justify,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );

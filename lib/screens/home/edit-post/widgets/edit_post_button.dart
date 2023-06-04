@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tahricha_app/models/comment.dart';
 import 'package:tahricha_app/models/post.dart';
 
 import 'package:tahricha_app/palatte.dart';
@@ -13,12 +14,14 @@ class EditPostButton extends StatelessWidget {
   final String id;
   final String userId;
   final int likes;
-  final bool good;
+  final bool good;  
   final int dislikes;
   final String image;
+  final List<dynamic> comments;
 
   const EditPostButton({
     Key? key,
+    required this.comments,
     required this.image,
     required this.buttonText,
     required this.food,
@@ -45,6 +48,7 @@ class EditPostButton extends StatelessWidget {
       child: TextButton(
           onPressed: () {
             editPost(
+              comments: comments,
               good:good,
               food: food,
               description: description,
@@ -78,10 +82,13 @@ class EditPostButton extends StatelessWidget {
       required bool good,
       required String userId,
       required int likes,
-      required int dislikes}) async {
+      required int dislikes,
+      required List<dynamic> comments
+      }) async {
     final docPost = FirebaseFirestore.instance.collection('posts').doc(id);
 
     final post = Post(
+      comments: comments,
       good:good,
       image: image,
         id: docPost.id,
