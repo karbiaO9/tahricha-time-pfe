@@ -3,6 +3,7 @@ import 'package:expandable/expandable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tahricha_app/home_widgets/widgets/comment_widget.dart';
+import 'package:tahricha_app/models/report.dart';
 import 'package:tahricha_app/models/user.dart';
 
 import 'package:tahricha_app/palatte.dart';
@@ -301,6 +302,7 @@ class _ProfilePostState extends State<ProfilePost> {
     contoller=ExpandableController();
     liked=HomePage.currentUser.likes.contains(widget.post.id);
   disliked=HomePage.currentUser.dislikes.contains(widget.post.id);
+  
   }
   @override
   void dispose() {
@@ -309,6 +311,9 @@ class _ProfilePostState extends State<ProfilePost> {
   }
   @override
   Widget build(BuildContext context) {
+        CollectionReference reports = FirebaseFirestore.instance.collection('reports');
+        final querySnapshot=reports.get();
+
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
@@ -383,12 +388,31 @@ class _ProfilePostState extends State<ProfilePost> {
                     },
                     icon: const Icon(Icons.update),
                     color: const Color.fromRGBO(62, 62, 104, 100)),
-                IconButton(
-                    onPressed: () {
-                      _deletePost(widget.post.id);
-                    },
-                    icon: const Icon(Icons.delete),
-                    color: const Color.fromRGBO(62, 62, 104, 100)),
+                FutureBuilder<QuerySnapshot>(
+                  future: FirebaseFirestore.instance.collection('reports').get(),
+                  builder:(_,data) {
+                    if(data.hasData){
+               final List<DocumentSnapshot> documents = data.data!.docs;
+                  print('rep data ${documents[0]['id']}');
+                List<Report> rp = documents.map((doc) => Report.fromJson(doc.data() as Map<String,dynamic>)).toList();
+return IconButton(
+                      onPressed: () {
+                        _deletePost(widget.post.id);
+                                     FirebaseFirestore.instance
+                        .collection('reports')
+                        .doc(rp.firstWhere((element) => element.postId==widget.post.id).id)
+                        .delete();
+                      },
+                      icon: const Icon(Icons.delete),
+                      color: const Color.fromRGBO(62, 62, 104, 100));
+
+                    }
+                 return Container();
+
+//                    print('repppp ${data.data.}');
+                    
+                  },
+                ),
               ]),
               Row(
                 children: [

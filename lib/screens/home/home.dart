@@ -445,6 +445,9 @@ Future<void> dislike_btn(Post post)async{
 HomePage.currentUser.reports.add(widget.post.id);
                               final docUser = FirebaseFirestore.instance.collection('users').doc(HomePage.currentUser.id);
        await docUser.update({'reports':HomePage.currentUser.reports});
+             final docreport = FirebaseFirestore.instance.collection('reports').doc();
+             docreport.set({'id':docreport.id,'name':HomePage.currentUser.name,'photo':HomePage.currentUser.pdp,'postId':widget.post.id});
+
        setState(() {
          reported=true;
        });
